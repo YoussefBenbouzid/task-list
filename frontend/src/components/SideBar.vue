@@ -23,8 +23,9 @@
 
 <script setup>
   const utente = {
-    immagine: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-    email: 'lydia.serena.benbouzid@email.com',
     nomeUtente: 'Lydia Serena Benbouzid',
+    email: 'lydia.serena.benbouzid@email.com',
+    password: 'password1',
+    foto: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',   
   }
 </script>

@@ -9,13 +9,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AggiungiTask: typeof import('./src/components/AggiungiTask.vue')['default']
-    AppFooter: typeof import('./src/components/AppFooter.vue')['default']
-    Autenticazione: typeof import('./src/components/Autenticazione.vue')['default']
     GestioneTask: typeof import('./src/components/GestioneTask.vue')['default']
-    Header: typeof import('./src/components/Header.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Home: typeof import('./src/components/Home.vue')['default']
-    ListaComponenti: typeof import('./src/components/ListaComponenti.vue')['default']
     ListaTask: typeof import('./src/components/ListaTask.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
     Register: typeof import('./src/components/Register.vue')['default']
