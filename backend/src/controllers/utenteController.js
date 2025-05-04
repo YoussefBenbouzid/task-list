@@ -37,6 +37,36 @@ export const getUtenteById = async(req, res) => {
         }
         res.status(200).json(utenteEsiste)
     } catch (error) {
-        res.status(500).json({errorMessage: error.message})
+        res.status(500).json({ errorMessage: error.message })
+    }
+}
+
+export const update = async(req, res) => {
+    try  {
+        const id = req.params.id
+        const utenteEsiste = await Utente.findById(id)
+        if (!utenteEsiste) {
+            return res.status(404).json({ message: "Utente non trovato."})
+        }
+        const updatedData = await Utente.findByIdAndUpdate(id, req.body, {
+            new:true
+        })
+        res.status(200).json(updatedData)
+    } catch (error) {
+        res.status(500).json({ errorMessage: error.message })
+    }
+}
+
+export const delete = async(req, res) => {
+    try {
+        const id = req.params.id
+        const utenteEsiste = await Utente.findById(id)
+        if (!utenteEsiste) {
+            return res.status(404).json({ message: "Utente non trovato."})
+        }
+        await Utente.findByIdAndDelete(id)
+        res.status(200).json({ message: "Utente cancellato con successo."})
+    } catch {
+        res.status(500).json({ errorMessage: error.message })
     }
 }
