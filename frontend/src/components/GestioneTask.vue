@@ -3,9 +3,7 @@
     <v-row>
       <v-col>
         <v-container>
-          <v-btn color="#03A9F4" prepend-icon="mdi-plus">
-            Aggiungi task
-          </v-btn>
+          <AggiungiTask />
         </v-container>
       </v-col>
       <v-col>
@@ -27,3 +25,7 @@
     </v-row>
   </v-container>
 </template>
+
+<script setup>
+  import AggiungiTask from '@/components/AggiungiTask.vue'
+</script>
