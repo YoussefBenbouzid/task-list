@@ -1,8 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-import route from './routes/utenteRoute.js'
-
+const route = require('./routes/utenteRoute.js')
 
 const app = express()
 
@@ -16,7 +15,6 @@ mongoose
     app.listen(PORT, () => {
         console.log("Server attivo.")
     })
-
 })
 .catch((error) => console.log(error))
 

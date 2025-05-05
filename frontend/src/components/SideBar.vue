@@ -2,7 +2,7 @@
   <v-navigation-drawer expand-on-hover rail>
     <v-list>
       <v-list-item
-        :prepend-avatar="utente.immagine"
+        :prepend-avatar="utente.foto"
         :subtitle="utente.email"
         :title="utente.nomeUtente"
       />

@@ -16,7 +16,7 @@ const utenteSchema = new mongoose.Schema({
         required: true,
     },
     foto: {
-        type: Date,
+        type: String,
         required: true,
     },
 })
