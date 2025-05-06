@@ -19,6 +19,8 @@ const utenteSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+}, {
+    collection: 'utenti'
 })
 
 module.exports = mongoose.model('Utente', utenteSchema)

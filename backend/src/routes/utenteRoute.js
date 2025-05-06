@@ -1,12 +1,12 @@
 const express = require('express')
-const { createUtente, getAllUtenti, getUtenteById, updateUtente, deleteUtente } = require('../models/utenteModel.js')
+const { createUtente, getUtenti, getUtente, updateUtente, deleteUtente } = require('../controllers/utenteController.js')
 
-const route = express.Router()
+const utenteRoute = express.Router()
 
-route.post("/utente", createUtente)
-route.get("/utenti", getAllUtenti)
-route.get("/utente/:id", getUtenteById)
-route.put("/updateUtente/utente/:id", updateUtente)
-route.delete("/deleteUtente/utente/:id", deleteUtente)
+utenteRoute.post("/createUtente", createUtente)
+utenteRoute.get("/getUtenti", getUtenti)
+utenteRoute.get("/getUtente/:utenteId", getUtente)
+utenteRoute.put("/updateUtente/:utenteId", updateUtente)
+utenteRoute.delete("/deleteUtente/:utenteId", deleteUtente)
 
-module.exports = route
+module.exports = utenteRoute

@@ -17,6 +17,17 @@ const taskSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    salvato: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    utenteId: {
+        type: String,
+        required: true
+    },  
+}, {
+    collection: 'task'
 })
 
 module.exports = mongoose.model('Task', taskSchema)

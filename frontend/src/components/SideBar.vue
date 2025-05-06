@@ -26,6 +26,6 @@
     nomeUtente: 'Lydia Serena Benbouzid',
     email: 'lydia.serena.benbouzid@email.com',
     password: 'password1',
-    foto: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',   
+    foto: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
   }
 </script>
