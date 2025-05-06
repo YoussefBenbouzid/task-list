@@ -1,14 +1,17 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 const taskRoute = require('./routes/taskRoute.js')
 const utenteRoute = require('./routes/utenteRoute.js')
-require('dotenv').config()
 
 const app = express()
 
 const PORT = process.env.PORT || 3000
 const MONGODB_URI = process.env.MONGODB_URI
+const secretKey = process.env.secretKey
 
 mongoose
 .connect(MONGODB_URI)

@@ -1,5 +1,6 @@
 const Utente = require('../models/utenteModel.js')
 
+// Da sostituire con routes/auth/register
 const createUtente = async (req, res) => {
     try {
         const newUtente = new Utente(req.body)
