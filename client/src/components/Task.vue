@@ -26,10 +26,10 @@
           <v-btn prepend-icon="mdi-star" />
         </v-col> -->
         <v-col>
-          <v-btn v-if="task.salvato" color="yellow" prepend-icon @click="toggleSalvato(task)">
+          <v-btn v-if="task.salvata" color="yellow" prepend-icon @click="toggleSalvata(task)">
             <v-icon>mdi-star</v-icon>
           </v-btn>
-          <v-btn v-else prepend-icon @click="toggleSalvato(task)">
+          <v-btn v-else prepend-icon @click="toggleSalvata(task)">
             <v-icon>mdi-star-outline</v-icon>
           </v-btn>
         </v-col>

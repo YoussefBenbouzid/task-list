@@ -17,7 +17,7 @@ const taskSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    salvato: {
+    salvata: {
         type: Boolean,
         required: true,
         default: false

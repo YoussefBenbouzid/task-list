@@ -2,8 +2,8 @@ const Task = require('../models/taskModel.js')
 
 const createTask = async (req, res) => {
     try {
-        const { titolo, descrizione, data, priorita, salvato, utenteId } = req.body
-        const newTask = new Task({ titolo, descrizione, data, priorita, salvato, utenteId })
+        const { titolo, descrizione, data, priorita, salvata, utenteId } = req.body
+        const newTask = new Task({ titolo, descrizione, data, priorita, salvata, utenteId })
         const dati = await newTask.save()
 
         res.status(200).json(dati)
@@ -69,12 +69,41 @@ const updateTask = async (req, res) => {
             return res.status(404).json({ message: "Task non trovata." })
         }
 
-        const updatedData = await Task.findByIdAndUpdate(id, req.body, { new: true })
+        const campiConsentiti = ['titolo', 'descrizione', 'data', 'priorita']
+        const datiAggiornati = {}
+
+        for (let campo of campiConsentiti) {
+            if (req.body[campo]) {
+                datiAggiornati[campo] = req.body[campo]
+            }
+        }
+
+        const updatedData = await Utente.findByIdAndUpdate(id, datiAggiornati, { new: true })
 
         res.status(200).json(updatedData)
 
     } catch (error) {
         res.status(500).json({ errorMessage: error.message })
+    }
+}
+
+const updateSalvata = async (req, res) => {
+    try {
+        const id = req.params.taskId;
+
+        const taskEsiste = await Task.findById(id);
+        if (!taskEsiste) {
+            return res.status(404).json({ message: "Task non trovata." });
+        }
+
+        const newSalvata = !taskEsiste.salvata;
+        const datiAggiornati = { salvata: newSalvata };
+        const updatedData = await Task.findByIdAndUpdate(id, datiAggiornati, { new: true });
+
+        res.status(200).json(updatedData);
+
+    } catch (error) {
+        res.status(500).json({ errorMessage: error.message });
     }
 }
 
@@ -96,4 +125,4 @@ const deleteTask = async (req, res) => {
     }
 }
 
-module.exports = { createTask, getTasks, getTask, getTasksByUtente, updateTask, deleteTask }
+module.exports = { createTask, getTasks, getTask, getTasksByUtente, updateTask, updateSalvata, deleteTask }

@@ -12,7 +12,7 @@ const register = async (req, res) => {
             return res.status(400).json({ message: "Utente già registrato." })
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10)
         const newUtente = new Utente({ nomeUtente, email, password: hashedPassword, foto })
         const dati = await newUtente.save()
 
@@ -25,7 +25,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { nomeUtente, password } = req.body;
+        const { nomeUtente, password } = req.body
 
         const utente = await Utente.findOne({ nomeUtente })
         if (!utente) {
@@ -46,25 +46,19 @@ const login = async (req, res) => {
         res.status(200).json({ token, nomeUtente: utente.nomeUtente })
 
     } catch (error) {
-        console.error("Errore login:", error);
+        console.error("Errore login:", error)
         res.status(500).json({ error: 'Accesso non riuscito', dettagli: error.message })
     }
 }
 
-const getUtenti = async (req, res) => {
+const logout = async (req, res) => {
     try {
-        const datiUtente = await Utente.find()
-
-        if (!datiUtente || datiUtente.length === 0) {
-            return res.status(404).json({ message: "Dati utente non trovati." })
-        }
-
-        res.status(200).json(datiUtente)
-
+        res.status(200).json({ message: 'Logout riuscito.' })
     } catch (error) {
         res.status(500).json({ errorMessage: error.message })
     }
 }
+
 
 const getUtente = async (req, res) => {
     try {
@@ -84,34 +78,34 @@ const getUtente = async (req, res) => {
 
 const updateUtente = async (req, res) => {
     try {
-        const id = req.params.utenteId;
+        const id = req.params.utenteId
 
-        const utenteEsiste = await Utente.findById(id);
+        const utenteEsiste = await Utente.findById(id)
         if (!utenteEsiste) {
-            return res.status(404).json({ message: "Utente non trovato." });
+            return res.status(404).json({ message: "Utente non trovato." })
         }
 
-        const campiConsentiti = ['nomeUtente', 'email', 'password', 'foto'];
-        const datiAggiornati = {};
+        const campiConsentiti = ['nomeUtente', 'email', 'password', 'foto']
+        const datiAggiornati = {}
 
         for (let campo of campiConsentiti) {
             if (req.body[campo]) {
-                datiAggiornati[campo] = req.body[campo];
+                datiAggiornati[campo] = req.body[campo]
             }
         }
 
         if (datiAggiornati.password) {
-            datiAggiornati.password = await bcrypt.hash(datiAggiornati.password, 10);
+            datiAggiornati.password = await bcrypt.hash(datiAggiornati.password, 10)
         }
 
-        const updatedData = await Utente.findByIdAndUpdate(id, datiAggiornati, { new: true });
+        const updatedData = await Utente.findByIdAndUpdate(id, datiAggiornati, { new: true })
 
-        res.status(200).json(updatedData);
+        res.status(200).json(updatedData)
 
     } catch (error) {
-        res.status(500).json({ errorMessage: error.message });
+        res.status(500).json({ errorMessage: error.message })
     }
-};
+}
 
 
 const deleteUtente = async (req, res) => {
@@ -132,4 +126,19 @@ const deleteUtente = async (req, res) => {
     }
 }
 
-module.exports = { register, login, getUtenti, getUtente, updateUtente, deleteUtente }
+const getUtenti = async (req, res) => {
+    try {
+        const datiUtente = await Utente.find()
+
+        if (!datiUtente || datiUtente.length === 0) {
+            return res.status(404).json({ message: "Dati utente non trovati." })
+        }
+
+        res.status(200).json(datiUtente)
+
+    } catch (error) {
+        res.status(500).json({ errorMessage: error.message })
+    }
+}
+
+module.exports = { register, login, logout, getUtente, updateUtente, deleteUtente, getUtenti }
