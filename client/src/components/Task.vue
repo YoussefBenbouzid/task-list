@@ -22,9 +22,6 @@
 
     <v-container>
       <v-row>
-        <!-- <v-col>
-          <v-btn prepend-icon="mdi-star" />
-        </v-col> -->
         <v-col>
           <v-btn v-if="task.salvata" color="yellow" prepend-icon @click="toggleSalvata(task)">
             <v-icon>mdi-star</v-icon>

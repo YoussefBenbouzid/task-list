@@ -59,7 +59,6 @@ const logout = async (req, res) => {
     }
 }
 
-
 const getUtente = async (req, res) => {
     try {
         const id = req.params.utenteId
@@ -106,7 +105,6 @@ const updateUtente = async (req, res) => {
         res.status(500).json({ errorMessage: error.message })
     }
 }
-
 
 const deleteUtente = async (req, res) => {
     try {
