@@ -1,22 +1,53 @@
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+require('dotenv').config()
 const Utente = require('../models/utenteModel.js')
 
-// Da sostituire con routes/auth/register
-const createUtente = async (req, res) => {
+const register = async (req, res) => {
     try {
-        const newUtente = new Utente(req.body)
-        const { nomeUtente } = newUtente
+        const { nomeUtente, email, password, foto } = req.body
         
         const utenteEsistente = await Utente.findOne({ nomeUtente })
         if (utenteEsistente) {
             return res.status(400).json({ message: "Utente già registrato." })
         }
 
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUtente = new Utente({ nomeUtente, email, password: hashedPassword, foto })
         const dati = await newUtente.save()
 
         res.status(200).json(dati)
 
     } catch (error) {
         res.status(500).json({ errorMessage: error.message })
+    }
+}
+
+const login = async (req, res) => {
+    try {
+        const { nomeUtente, password } = req.body;
+
+        const utente = await Utente.findOne({ nomeUtente })
+        if (!utente) {
+            return res.status(400).json({ error: 'Utente non trovato.' })
+        }
+
+        const passwordMatch = await bcrypt.compare(password, utente.password)
+        if (!passwordMatch) {
+            return res.status(400).json({ error: 'Password errata.' })
+        }
+
+        const token = jwt.sign(
+            { id: utente._id, nomeUtente: utente.nomeUtente },
+            process.env.SECRET_KEY,
+            { expiresIn: '1h' }
+        )
+        
+        res.status(200).json({ token, nomeUtente: utente.nomeUtente })
+
+    } catch (error) {
+        console.error("Errore login:", error);
+        res.status(500).json({ error: 'Accesso non riuscito', dettagli: error.message })
     }
 }
 
@@ -53,21 +84,35 @@ const getUtente = async (req, res) => {
 
 const updateUtente = async (req, res) => {
     try {
-        const id = req.params.utenteId
+        const id = req.params.utenteId;
 
-        const utenteEsiste = await Utente.findById(id)
+        const utenteEsiste = await Utente.findById(id);
         if (!utenteEsiste) {
-            return res.status(404).json({ message: "Utente non trovato." })
+            return res.status(404).json({ message: "Utente non trovato." });
         }
 
-        const updatedData = await Utente.findByIdAndUpdate(id, req.body, { new: true })
+        const campiConsentiti = ['nomeUtente', 'email', 'password', 'foto'];
+        const datiAggiornati = {};
 
-        res.status(200).json(updatedData)
+        for (let campo of campiConsentiti) {
+            if (req.body[campo]) {
+                datiAggiornati[campo] = req.body[campo];
+            }
+        }
+
+        if (datiAggiornati.password) {
+            datiAggiornati.password = await bcrypt.hash(datiAggiornati.password, 10);
+        }
+
+        const updatedData = await Utente.findByIdAndUpdate(id, datiAggiornati, { new: true });
+
+        res.status(200).json(updatedData);
 
     } catch (error) {
-        res.status(500).json({ errorMessage: error.message })
+        res.status(500).json({ errorMessage: error.message });
     }
-}
+};
+
 
 const deleteUtente = async (req, res) => {
     try {
@@ -87,4 +132,4 @@ const deleteUtente = async (req, res) => {
     }
 }
 
-module.exports = { createUtente, getUtenti, getUtente, updateUtente, deleteUtente }
+module.exports = { register, login, getUtenti, getUtente, updateUtente, deleteUtente }
