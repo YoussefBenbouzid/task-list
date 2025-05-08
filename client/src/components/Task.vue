@@ -43,9 +43,6 @@
 
 <script setup>
   defineProps({
-    task: {
-      type: Object,
-      required: true,
-    },
+    task: Object,
   })
 </script>

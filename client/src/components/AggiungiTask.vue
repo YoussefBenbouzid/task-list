@@ -12,16 +12,29 @@
 
     <template #default="{ isActive }">
       <v-card title="Aggiungi task">
-        Da aggiungere form
-
-        <v-card-actions>
-          <v-spacer />
-
-          <v-btn
-            text="Aggiungi"
-            @click="isActive.value = false"
+        <v-form fast-fail @submit.prevent>
+          <v-text-field
+            v-model="titolo"
+            label="Titolo"
           />
-        </v-card-actions>
+
+          <v-text-field
+            v-model="descrizione"
+            label="Descrizione"
+          />
+
+          <v-text-field
+            v-model="data"
+            label="Data"
+          />
+
+          <v-text-field
+            v-model="priorita"
+            label="Priorità"
+          />
+
+          <v-btn block class="mt-2" type="submit" @click="isActive.value = false">Aggiungi</v-btn>
+        </v-form>
       </v-card>
     </template>
   </v-dialog>

@@ -6,7 +6,7 @@
     <v-col>
       <v-container>
         <GestioneTask />
-        <ListaComponenti />
+        <ListaTask />
       </v-container>
     </v-col>
   </v-row>
@@ -15,5 +15,5 @@
 <script setup>
   import SideBar from '@/components/SideBar.vue'
   import GestioneTask from '@/components/GestioneTask.vue'
-  import ListaComponenti from '@/components/ListaTask.vue'
+  import ListaTask from '@/components/ListaTask.vue'
 </script>
