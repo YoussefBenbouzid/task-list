@@ -43,7 +43,7 @@ const login = async (req, res) => {
             { expiresIn: '1h' }
         )
         
-        res.status(200).json({ token, nomeUtente: utente.nomeUtente })
+        res.status(200).json({ token, nomeUtente: utente.nomeUtente, email: utente.email, foto: utente.foto, id: utente._id })
 
     } catch (error) {
         console.error("Errore login:", error)

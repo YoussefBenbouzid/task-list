@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Task = require('../models/taskModel.js')
 
 const createTask = async (req, res) => {
@@ -78,7 +79,7 @@ const updateTask = async (req, res) => {
             }
         }
 
-        const updatedData = await Utente.findByIdAndUpdate(id, datiAggiornati, { new: true })
+        const updatedData = await Task.findByIdAndUpdate(id, datiAggiornati, { new: true })
 
         res.status(200).json(updatedData)
 
