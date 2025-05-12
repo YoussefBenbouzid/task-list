@@ -40,6 +40,10 @@ cd client
 npm install
 ```
 
+```bash
+cd ..
+```
+
 #### Server
 ```bash
 cd server
@@ -47,6 +51,10 @@ cd server
 
 ```bash
 npm install
+```
+
+```bash
+cd ..
 ```
 
 ### 3. Avvio di MongoDB
