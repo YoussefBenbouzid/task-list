@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-  import { defineEmits } from 'vue'
   import apiTask from '@/utils/AxiosTask'
 
   const emit = defineEmits(['salvata-toggled', 'delete-toggled'])
