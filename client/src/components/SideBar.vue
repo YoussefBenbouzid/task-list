@@ -1,6 +1,7 @@
 <template>
   <!-- <v-navigation-drawer expand-on-hover rail> -->
-  <v-navigation-drawer>
+  <!-- <v-navigation-drawer> -->
+  <container>
     <v-list>
       <v-list-item :prepend-avatar="foto" :subtitle="email" :title="nomeUtente" />
     </v-list>
@@ -24,7 +25,8 @@
         <Logout @logout="cancellaDatiUtente" />
       </v-list-item>
     </v-list>
-  </v-navigation-drawer>
+  </container>
+  <!-- </v-navigation-drawer> -->
 
   <v-main style="height: 250px" />
 </template>
