@@ -19,6 +19,9 @@ Task List è un'applicazione web che consente agli utenti di gestire attività p
 ### 1. Clonazione del repository
 ```bash
 git clone https://github.com/YoussefBenbouzid/task-list.git
+```
+
+```bash
 cd task-list
 ```
 
@@ -31,12 +34,18 @@ npm install
 #### Client
 ```bash
 cd client
+```
+
+```bash
 npm install
 ```
 
 #### Server
 ```bash
 cd server
+```
+
+```bash
 npm install
 ```
 
