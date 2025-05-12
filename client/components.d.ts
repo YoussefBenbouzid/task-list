@@ -10,7 +10,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AggiungiTask: typeof import('./src/components/AggiungiTask.vue')['default']
     CercaTask: typeof import('./src/components/CercaTask.vue')['default']
-    GestioneTask: typeof import('./src/components/GestioneTask.vue')['default']
     Home: typeof import('./src/components/Home.vue')['default']
     ListaTask: typeof import('./src/components/ListaTask.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
