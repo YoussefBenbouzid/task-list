@@ -77,3 +77,6 @@ SECRET_KEY=<una-stringa-lunga-e-casuale>
 ```bash
 npm run dev
 ```
+
+Il progetto sarà disponibile al seguente indirizzo:
+[http://localhost:3000](http://localhost:3000)
