@@ -14,6 +14,8 @@ Task List è un'applicazione web che consente agli utenti di gestire attività p
 - **Database**: MongoDB  
 - **Autenticazione**: JSON Web Token (JWT)
 
+Il progetto è stato sviluppato con la versione 22.14.0 di Node.js.
+
 ##  Installazione e avvio
 
 ### 1. Clonazione del repository
