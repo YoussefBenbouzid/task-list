@@ -33,11 +33,11 @@
 
 <script setup>
   import { onMounted, ref } from 'vue'
-  import Login from '@/components/Login'
-  import Register from '@/components/Register'
-  import MieTask from '@/components/MieTask'
-  import TaskSalvate from '@/components/TaskSalvate'
-  import Logout from '@/components/Logout'
+  import Login from '@/views/Login'
+  import Register from '@/views/Register'
+  import MieTask from '@/components/Body/MieTask'
+  import TaskSalvate from '@/components/Body/TaskSalvate'
+  import Logout from '@/components/Body/Logout'
 
   const nomeUtente = ref('')
   const email = ref('')

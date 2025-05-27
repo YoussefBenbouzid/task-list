@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-  import apiUtenti from '@/utils/AxiosUtenti'
+  import apiUtenti from '@/plugins/AxiosUtenti'
   import { useRouter } from 'vue-router'
 
   const emit = defineEmits(['logout'])

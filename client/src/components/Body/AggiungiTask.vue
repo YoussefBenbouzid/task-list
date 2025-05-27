@@ -28,7 +28,7 @@
 
 <script setup>
   import { ref } from 'vue'
-  import apiTask from '@/utils/AxiosTask'
+  import apiTask from '@/plugins/AxiosTask'
   import { useRouter } from 'vue-router'
 
   const router = useRouter()

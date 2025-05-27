@@ -6,14 +6,24 @@
 
 // Composables
 import { createRouter, createWebHistory } from 'vue-router/auto'
-import Home from '@/components/Home.vue'
+import Home from '@/views/Home.vue'
+import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '',
+      path: '/',
       component: Home,
+    },
+    {
+      path: '/Login',
+      component: Login,
+    },
+    {
+      path: '/Register',
+      component: Register,
     },
   ],
 })

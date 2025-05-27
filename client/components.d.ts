@@ -8,18 +8,22 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AggiungiTask: typeof import('./src/components/AggiungiTask.vue')['default']
-    CercaTask: typeof import('./src/components/CercaTask.vue')['default']
-    Home: typeof import('./src/components/Home.vue')['default']
-    ListaTask: typeof import('./src/components/ListaTask.vue')['default']
-    Login: typeof import('./src/components/Login.vue')['default']
-    Logout: typeof import('./src/components/Logout.vue')['default']
-    MieTask: typeof import('./src/components/MieTask.vue')['default']
-    Register: typeof import('./src/components/Register.vue')['default']
+    AggiungiTask: typeof import('./src/components/Body/AggiungiTask.vue')['default']
+    Body: typeof import('./src/components/Body.vue')['default']
+    CercaTask: typeof import('./src/components/Body/CercaTask.vue')['default']
+    Footer: typeof import('./src/components/Footer.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
+    Home: typeof import('./src/views/Home.vue')['default']
+    ListaTask: typeof import('./src/components/Body/ListaTask.vue')['default']
+    Login: typeof import('./src/views/Login.vue')['default']
+    Logout: typeof import('./src/components/Body/Logout.vue')['default']
+    Main: typeof import('./src/components/Main.vue')['default']
+    MieTask: typeof import('./src/components/Body/MieTask.vue')['default']
+    Register: typeof import('./src/views/Register.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SideBar: typeof import('./src/components/SideBar.vue')['default']
-    Task: typeof import('./src/components/Task.vue')['default']
-    TaskSalvate: typeof import('./src/components/TaskSalvate.vue')['default']
+    SideBar: typeof import('./src/components/Body/SideBar.vue')['default']
+    Task: typeof import('./src/components/Body/Task.vue')['default']
+    TaskSalvate: typeof import('./src/components/Body/TaskSalvate.vue')['default']
   }
 }

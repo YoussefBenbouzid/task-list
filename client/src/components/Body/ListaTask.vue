@@ -12,8 +12,8 @@
 
 <script setup>
   import { onMounted, ref } from 'vue'
-  import api from '@/utils/AxiosTask.js'
-  import Task from '@/components/Task.vue'
+  import api from '@/plugins/AxiosTask.js'
+  import Task from '@/components/Body/Task.vue'
 
   const tasks = ref([])
 

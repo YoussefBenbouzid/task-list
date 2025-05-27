@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-  import apiTask from '@/utils/AxiosTask'
+  import apiTask from '@/plugins/AxiosTask'
 
   const emit = defineEmits(['salvata-toggled', 'delete-toggled'])
 
