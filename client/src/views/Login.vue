@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
+      <!-- <v-col class="pa-16 d-flex justify-center align-center" cols="12" md="6"> -->
       <v-col align="center" align-self="center" class="pa-16" cols="12" md="6">
         <v-sheet class="pa-2 rounded-lg" elevation="6">
           <div class="ma-4 text-center">
@@ -18,6 +19,7 @@
           </v-form>
         </v-sheet>
       </v-col>
+      <!-- <v-col class="pa-0 d-flex justify-center align-stretch" cols="12" md="6"> -->
       <v-col align="center" align-self="stretch" class="pa-0" cols="12" md="6">
         <v-img class="fill-height" cover position="sticky" src="@/assets/login.svg" />
       </v-col>
@@ -73,5 +75,4 @@
   }
 
   const rules = [v => !!v || 'Campo obbligatorio']
-
 </script>

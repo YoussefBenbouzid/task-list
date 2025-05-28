@@ -6,13 +6,13 @@
     <v-toolbar-title style="font-family: 'Lucida Handwriting'; font-weight: bold;">Task List</v-toolbar-title>
     <v-btn v-if="!isLogged" class="rounded-xl selezione-navbar" text="Accedi" @click="vaiALogin" />
     <v-btn v-if="!isLogged" class="mx-12 rounded-xl selezione-navbar" text="Registrati" @click="vaiARegister" />
-    <v-btn v-if="isLogged" class="mx-6 rounded-xl selezione-navbar" prepend-icon="mdi-plus" text="Aggiungi task" />
+    <AggiungiTask v-if="isLogged" />
     <v-list-item v-if="isLogged" class="ml-6 immagine-profilo" :prepend-avatar="utente.foto" @click.stop="drawer = !drawer" />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="right" temporary elevation="6">
     <v-list-item v-if="isLogged" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-folder" title="Mie task" value="mieTask" />
+      <v-list-item prepend-icon="mdi-folder" title="Mie task" value="mieTask" @click="vaiAHome" />
     </v-list-item>
     <v-divider />
     <v-list-item v-if="isLogged" class="selezione-sidebar">
@@ -20,7 +20,7 @@
     </v-list-item>
     <v-divider />
     <v-list-item v-if="isLogged" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-account" title="Profilo" value="Profilo" @click="vaiAProfilo" />
+      <v-list-item prepend-icon="mdi-account" title="Profilo" value="profilo" @click="vaiAProfilo" />
     </v-list-item>
     <v-divider />
     <v-list-item v-if="isLogged" class="selezione-sidebar">
@@ -31,6 +31,7 @@
 </template>
 
 <script setup>
+  import AggiungiTask from '@/components/AggiungiTask.vue'
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import api from '@/plugins/axios.js'

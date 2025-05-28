@@ -8,13 +8,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AggiungiTask: typeof import('./src/components/Body/AggiungiTask.vue')['default']
+    AggiungiTask: typeof import('./src/components/AggiungiTask.vue')['default']
     Body: typeof import('./src/components/Body.vue')['default']
     CercaTask: typeof import('./src/components/Body/CercaTask.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     Home: typeof import('./src/views/Home.vue')['default']
-    ListaTask: typeof import('./src/components/Body/ListaTask.vue')['default']
+    ListaTask: typeof import('./src/components/ListaTask.vue')['default']
     Login: typeof import('./src/views/Login.vue')['default']
     Logout: typeof import('./src/components/Body/Logout.vue')['default']
     Main: typeof import('./src/components/ListaTask.vue')['default']
