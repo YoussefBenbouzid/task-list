@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-  import apiUtenti from '@/plugins/AxiosUtenti'
+  import api from '@/plugins/axios'
   import { useRouter } from 'vue-router'
 
   const emit = defineEmits(['logout'])
@@ -11,7 +11,7 @@
 
   const logout = async () => {
     try {
-      await apiUtenti.post('/logout', {}, {
+      await api.post('/logout', {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

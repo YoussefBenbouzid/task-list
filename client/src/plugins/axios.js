@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const apiTask = axios.create({
-  baseURL: 'http://localhost:5000/api/task',
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api',
 })
 
-apiTask.interceptors.request.use(config => {
+api.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
@@ -14,4 +14,4 @@ apiTask.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-export default apiTask
+export default api

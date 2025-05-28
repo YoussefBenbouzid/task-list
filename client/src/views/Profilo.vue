@@ -3,7 +3,7 @@
     <v-layout>
       <Header />
       <v-main style="height: 800px;">
-        <ListaTask />
+        <SezioneProfilo />
       </v-main>
     </v-layout>
   </v-card>
@@ -13,6 +13,6 @@
 
 <script setup>
   import Header from '@/components/Header.vue'
-  import ListaTask from '@/components/ListaTask.vue'
+  import SezioneProfilo from '@/components/SezioneProfilo.vue'
   import Footer from '@/components/Footer.vue'
 </script>
