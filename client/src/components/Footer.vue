@@ -6,7 +6,7 @@
         <p class="ma-1 font-weight-bold text-h4 text-center" style="color: #190BA4; font-family: 'Lucida Handwriting';">Task List</p>
       </div>
     </div>
-
+l
     <v-divider class="my-1" thickness="2" width="1000" />
 
     <div class="text-caption font-weight-regular opacity-60">
