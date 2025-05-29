@@ -1,28 +1,18 @@
 <template>
   <v-app-bar color="#cbcacf" height="100">
-    <v-list-item @click="$emit('cambiaPagina', 'ListaTask')">
+    <v-list-item @click="cambiaPagina('ListaTask')">
       <img height="60" src="@/assets/logo.svg" width="60">
     </v-list-item>
     <v-toolbar-title style="font-family: 'Lucida Handwriting'; font-weight: bold;">Task List</v-toolbar-title>
-    <v-btn v-if="!utenteLoggato" class="rounded-xl selezione-navbar" text="Accedi" @click="vaiALogin" />
-    <v-btn v-if="!utenteLoggato" class="mx-12 rounded-xl selezione-navbar" text="Registrati" @click="vaiARegister" />
-    <AggiungiTask v-if="utenteLoggato" />
-    <v-list-item v-if="utenteLoggato" class="ml-6 immagine-profilo" :prepend-avatar="utente.foto" @click.stop="drawer = !drawer" />
+    <AggiungiTask />
+    <v-list-item class="ml-6 immagine-profilo" :prepend-avatar="utente.foto" @click.stop="drawer = !drawer" />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="right" temporary elevation="6">
-    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="$emit('cambiaPagina', 'ListaTask')" />
-    </v-list-item>
-    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="$emit('cambiaPagina', 'ListaTask')" />
-    </v-list-item>
-    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-account" title="Profilo" value="profilo" @click="$emit('cambiaPagina', 'SezioneProfilo')" />
-    </v-list-item>
-    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-logout" title="Esci" value="logout" @click="logout" />
-    </v-list-item>
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="cambiaPagina('ListaTask')" />
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="cambiaPagina('ListaTask')" />
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-account" title="Profilo" value="profilo" @click="cambiaPagina('SezioneProfilo')" />
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-logout" title="Esci" value="logout" @click="logout" />
   </v-navigation-drawer>
 </template>
 
@@ -37,12 +27,8 @@
 
   const emit = defineEmits(['cambiaPagina'])
 
-  function vaiALogin () {
-    router.push('/Login')
-  }
-
-  function vaiARegister () {
-    router.push('/Register')
+  function cambiaPagina(pagina) {
+    emit('cambiaPagina', pagina)
   }
 
   const logout = async () => {
@@ -58,10 +44,8 @@
 
     localStorage.clear()
 
-    emit('cambiaPagina', 'ListaTask')
+    router.push('/login')
   }
-
-  const utenteLoggato = ref(true) // Test
 
   const utente = { // Test
     nomeUtente: 'Lydia Serena Benbouzid',

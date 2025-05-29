@@ -1,7 +1,7 @@
 <template>
   <v-dialog max-width="500" :model-value="isDialogOpen" @update:model-value="isDialogOpen = $event">
     <template #activator="{ props }">
-      <v-btn v-bind="props" class="mx-6 rounded-xl selezione-navbar" prepend-icon="mdi-plus" text="Aggiungi task" @click="isDialogOpen = true"/>
+      <v-btn v-bind="props" class="mx-6 rounded-xl selezione-navbar" prepend-icon="mdi-plus" text="Aggiungi task" @click="isDialogOpen = true" />
     </template>
     <v-card class="border-md rounded-lg pa-4">
       <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="isDialogOpen = false" />
@@ -10,7 +10,7 @@
         <v-text-field v-model="titolo" label="Titolo" :rules="rules" />
         <v-text-field v-model="descrizione" label="Descrizione" :rules="rules" />
         <div class="d-flex justify-center mb-4">
-          <v-date-picker class="border" v-model="data" label="Data" locale="it" />
+          <v-date-picker v-model="data" class="border" label="Data" locale="it" />
         </div>
         <v-text-field v-model="priorita" label="Priorità" :rules="rules" />
         <v-btn block type="submit">Aggiungi task</v-btn>
@@ -21,11 +21,8 @@
 
 <script setup>
   import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
   import { useNotification } from '@kyvg/vue3-notification'
   import api from '@/plugins/axios.js'
-
-  const router = useRouter()
   const { notify } = useNotification()
 
   const isDialogOpen = ref(false)
