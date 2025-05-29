@@ -17,8 +17,8 @@
             <p>Qui potrai modificare i tuoi dati e gestire il tuo account.</p>
           </v-card-text>
           <v-card-text class="d-flex flex-column">
-            <v-btn class="mb-4 rounded-xl" prepend-icon="mdi-pencil" style="background-color: #190BA4; color: #FFFFFF;" text="Modifica profilo" />
-            <v-btn class="mb-4 rounded-xl" prepend-icon="mdi-delete" style="background-color: #190BA4; color: #FFFFFF;" text="Elimina profilo" />
+            <v-btn class="mb-4 rounded-xl" prepend-icon="mdi-pencil" style="background-color: #190ba4; color: #ffffff;" text="Modifica profilo" />
+            <v-btn class="mb-4 rounded-xl" prepend-icon="mdi-delete" style="background-color: #190ba4; color: #ffffff;" text="Elimina profilo" />
           </v-card-text>
         </v-col>
       </v-row>

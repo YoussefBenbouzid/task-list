@@ -6,7 +6,7 @@
         <v-sheet class="pa-2 rounded-lg" elevation="6">
           <div class="ma-4 text-center">
             <img class="ma-1" height="100" src="@/assets/logo.svg" width="100">
-            <p class="ma-2 font-weight-bold text-h2 text-center" style="color: #190BA4; font-family: 'Lucida Handwriting';">Task List</p>
+            <p class="ma-2 font-weight-bold text-h2 text-center" style="color: #190ba4; font-family: 'Lucida Handwriting';">Task List</p>
           </div>
           <v-form class="ma-6" @submit.prevent="login">
             <p class="font-weight-black ma-6 text-center">Accedi al tuo account</p>
@@ -14,7 +14,7 @@
             <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules" />
             <p class="font-weight-normal text-left">Password</p>
             <v-text-field v-model="password" label="Password" :rules="rules" type="password" />
-            <v-btn block class="mt-2 rounded-lg" color="#190BA4" type="submit">Accedi</v-btn>
+            <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Accedi</v-btn>
             <p class="ma-6 text-center">Non hai un account? <a class="text-decoration-none" href="/Register">Registrati</a></p>
           </v-form>
         </v-sheet>
@@ -34,7 +34,6 @@
   import api from '@/plugins/axios.js'
 
   const router = useRouter()
-  const emit = defineEmits(['login'])
   const { notify } = useNotification()
 
   const nomeUtente = ref('')
@@ -58,8 +57,6 @@
         text: 'Autenticazione effettuata con successo',
         type: 'success',
       })
-
-      emit('login')
 
       if(response.data.token) {
         router.push('/')

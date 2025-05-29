@@ -6,7 +6,7 @@
         <v-sheet class="pa-2 rounded-lg" elevation="6">
           <div class="ma-4 text-center">
             <img class="ma-1" height="100" src="@/assets/logo.svg" width="100">
-            <p class="ma-2 font-weight-bold text-h2 text-center" style="color: #190BA4; font-family: 'Lucida Handwriting';">Task List</p>
+            <p class="ma-2 font-weight-bold text-h2 text-center" style="color: #190ba4; font-family: 'Lucida Handwriting';">Task List</p>
           </div>
           <v-form class="ma-6" @submit.prevent="register">
             <p class="font-weight-black ma-6 text-center">Crea il tuo account</p>
@@ -18,7 +18,7 @@
             <v-text-field v-model="foto" label="Foto" :rules="rules" />
             <p class="font-weight-normal text-left">Password</p>
             <v-text-field v-model="password" label="Password" :rules="rules" type="password" />
-            <v-btn block class="mt-2 rounded-lg" color="#190BA4" type="submit">Registrati</v-btn>
+            <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Registrati</v-btn>
             <p class="ma-6 text-center">Hai già un account? <a class="text-decoration-none" href="/Login">Accedi</a></p>
           </v-form>
         </v-sheet>
@@ -38,7 +38,6 @@
   import api from '@/plugins/axios.js'
 
   const router = useRouter()
-  const emit = defineEmits(['register'])
   const { notify } = useNotification()
 
   const nomeUtente = ref('')
@@ -67,8 +66,6 @@
           text: 'La tua utenza è stata registrata',
           type: 'success',
         })
-
-        emit('register')
 
         if(response.data.token) {
           router.push('/')

@@ -1,32 +1,28 @@
 <template>
-  <v-app-bar color="#CBCACF" height="100">
-    <v-list-item @click="vaiAHome">
-      <img height="40" src="@/assets/logo.svg" width="40">
+  <v-app-bar color="#cbcacf" height="100">
+    <v-list-item @click="$emit('cambiaPagina', 'ListaTask')">
+      <img height="60" src="@/assets/logo.svg" width="60">
     </v-list-item>
     <v-toolbar-title style="font-family: 'Lucida Handwriting'; font-weight: bold;">Task List</v-toolbar-title>
-    <v-btn v-if="!isLogged" class="rounded-xl selezione-navbar" text="Accedi" @click="vaiALogin" />
-    <v-btn v-if="!isLogged" class="mx-12 rounded-xl selezione-navbar" text="Registrati" @click="vaiARegister" />
-    <AggiungiTask v-if="isLogged" />
-    <v-list-item v-if="isLogged" class="ml-6 immagine-profilo" :prepend-avatar="utente.foto" @click.stop="drawer = !drawer" />
+    <v-btn v-if="!utenteLoggato" class="rounded-xl selezione-navbar" text="Accedi" @click="vaiALogin" />
+    <v-btn v-if="!utenteLoggato" class="mx-12 rounded-xl selezione-navbar" text="Registrati" @click="vaiARegister" />
+    <AggiungiTask v-if="utenteLoggato" />
+    <v-list-item v-if="utenteLoggato" class="ml-6 immagine-profilo" :prepend-avatar="utente.foto" @click.stop="drawer = !drawer" />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="right" temporary elevation="6">
-    <v-list-item v-if="isLogged" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-folder" title="Mie task" value="mieTask" @click="vaiAHome" />
+    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
+      <v-list-item prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="$emit('cambiaPagina', 'ListaTask')" />
     </v-list-item>
-    <v-divider />
-    <v-list-item v-if="isLogged" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" />
+    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
+      <v-list-item prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="$emit('cambiaPagina', 'ListaTask')" />
     </v-list-item>
-    <v-divider />
-    <v-list-item v-if="isLogged" class="selezione-sidebar">
-      <v-list-item prepend-icon="mdi-account" title="Profilo" value="profilo" @click="vaiAProfilo" />
+    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
+      <v-list-item prepend-icon="mdi-account" title="Profilo" value="profilo" @click="$emit('cambiaPagina', 'SezioneProfilo')" />
     </v-list-item>
-    <v-divider />
-    <v-list-item v-if="isLogged" class="selezione-sidebar">
+    <v-list-item v-if="utenteLoggato" class="selezione-sidebar">
       <v-list-item prepend-icon="mdi-logout" title="Esci" value="logout" @click="logout" />
     </v-list-item>
-    <v-divider />
   </v-navigation-drawer>
 </template>
 
@@ -37,23 +33,16 @@
   import api from '@/plugins/axios.js'
 
   const router = useRouter()
-
   const drawer = ref(null)
 
-  function vaiAHome () {
-    router.push('/')
-  }
+  const emit = defineEmits(['cambiaPagina'])
 
   function vaiALogin () {
-    router.push('/Profilo')
+    router.push('/Login')
   }
 
   function vaiARegister () {
     router.push('/Register')
-  }
-
-  function vaiAProfilo () {
-    router.push('/Profilo')
   }
 
   const logout = async () => {
@@ -69,10 +58,10 @@
 
     localStorage.clear()
 
-    router.push('/')
+    emit('cambiaPagina', 'ListaTask')
   }
 
-  const isLogged = ref(true) // Test
+  const utenteLoggato = ref(true) // Test
 
   const utente = { // Test
     nomeUtente: 'Lydia Serena Benbouzid',
@@ -84,13 +73,13 @@
 
 <style scoped>
   .selezione-navbar {
-    background-color: #190BA4;
-    color: #FFFFFF;
+    background-color: #190ba4;
+    color: #ffffff;
   }
 
   .selezione-sidebar:hover {
-    background-color: #190BA4;
-    color: #FFFFFF;
+    background-color: #190ba4;
+    color: #ffffff;
     cursor: pointer;
   }
 

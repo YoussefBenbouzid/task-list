@@ -24,7 +24,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SezioneProfilo: typeof import('./src/components/SezioneProfilo.vue')['default']
     SideBar: typeof import('./src/components/Body/SideBar.vue')['default']
-    Task: typeof import('./src/components/Body/Task.vue')['default']
+    Task: typeof import('./src/components/Task.vue')['default']
     TaskSalvate: typeof import('./src/components/Body/TaskSalvate.vue')['default']
   }
 }

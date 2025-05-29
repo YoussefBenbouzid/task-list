@@ -3,13 +3,17 @@
     <template #activator="{ props }">
       <v-btn v-bind="props" class="mx-6 rounded-xl selezione-navbar" prepend-icon="mdi-plus" text="Aggiungi task" @click="isDialogOpen = true"/>
     </template>
-    <v-card title="Aggiungi task">
+    <v-card class="border-md rounded-lg pa-4">
+      <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="isDialogOpen = false" />
+      <span class="font-weight-bold text-h5 text-center ma-2">Aggiungi task</span>
       <v-form @submit.prevent="aggiungiTask">
         <v-text-field v-model="titolo" label="Titolo" :rules="rules" />
         <v-text-field v-model="descrizione" label="Descrizione" :rules="rules" />
-        <v-date-picker v-model="data" label="Data" locale="it" :rules="rules" />
+        <div class="d-flex justify-center mb-4">
+          <v-date-picker class="border" v-model="data" label="Data" locale="it" />
+        </div>
         <v-text-field v-model="priorita" label="Priorità" :rules="rules" />
-        <v-btn block class="mt-2" type="submit">Aggiungi task</v-btn>
+        <v-btn block type="submit">Aggiungi task</v-btn>
       </v-form>
     </v-card>
   </v-dialog>
@@ -22,7 +26,6 @@
   import api from '@/plugins/axios.js'
 
   const router = useRouter()
-  const emit = defineEmits(['aggiungi-task'])
   const { notify } = useNotification()
 
   const isDialogOpen = ref(false)
@@ -49,11 +52,7 @@
         type: 'success',
       })
 
-      emit('aggiungi-task')
-
       isDialogOpen.value = false
-
-      router.push('/')
     } catch (error) {
       notify({
         title: 'Aggiunta task fallita!',
@@ -68,7 +67,7 @@
 
 <style scoped>
   .selezione-navbar {
-    background-color: #190BA4;
-    color: #FFFFFF;
+    background-color: #190ba4;
+    color: #ffffff;
   }
 </style>
