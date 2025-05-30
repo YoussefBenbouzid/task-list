@@ -5,10 +5,10 @@
     </v-list-item>
     <v-toolbar-title style="font-family: 'Lucida Handwriting'; font-weight: bold;">Task List</v-toolbar-title>
     <AggiungiTask />
-    <v-list-item class="ml-6 immagine-profilo" :prepend-avatar="utente.foto" @click.stop="drawer = !drawer" />
+    <v-list-item class="ml-6 immagine-profilo" :prepend-avatar="foto" @click.stop="drawer = !drawer" />
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" location="right" temporary elevation="6">
+  <v-navigation-drawer v-model="drawer"  elevation="6" location="right" temporary>
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="cambiaPagina('ListaTask')" />
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="cambiaPagina('ListaTask')" />
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-account" title="Profilo" value="profilo" @click="cambiaPagina('SezioneProfilo')" />
@@ -18,17 +18,22 @@
 
 <script setup>
   import AggiungiTask from '@/components/AggiungiTask.vue'
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
   import { useRouter } from 'vue-router'
   import api from '@/plugins/axios.js'
 
   const router = useRouter()
   const drawer = ref(null)
+  const foto = ref('')
 
-  const emit = defineEmits(['cambiaPagina'])
+  const emit = defineEmits(['cambia-pagina'])
+
+  const caricaDatiUtente = () => {
+    foto.value = localStorage.getItem('foto')
+  }
 
   function cambiaPagina(pagina) {
-    emit('cambiaPagina', pagina)
+    emit('cambia-pagina', pagina)
   }
 
   const logout = async () => {
@@ -47,12 +52,9 @@
     router.push('/login')
   }
 
-  const utente = { // Test
-    nomeUtente: 'Lydia Serena Benbouzid',
-    email: 'lydia.serena.benbouzid@email.com',
-    password: 'passwordLydia',
-    foto: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-  }
+  onMounted(() => {
+    caricaDatiUtente()
+  })
 </script>
 
 <style scoped>

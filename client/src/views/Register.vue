@@ -7,16 +7,16 @@
             <img class="ma-1" height="100" src="@/assets/logo.svg" width="100">
             <p class="ma-2 font-weight-bold text-h2 text-center" style="color: #190ba4; font-family: 'Lucida Handwriting';">Task List</p>
           </div>
-          <v-form class="ma-6" @submit.prevent="register">
+          <v-form ref="form" class="ma-6" @submit.prevent="register">
             <p class="font-weight-black ma-6 text-center">Crea il tuo account</p>
             <p class="font-weight-normal text-left">Nome utente</p>
-            <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules" />
+            <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules.nomeUtente" />
             <p class="font-weight-normal text-left">Email</p>
-            <v-text-field v-model="email" label="Email" :rules="rules" type="email" />
+            <v-text-field v-model="email" label="Email" :rules="rules.email" type="email" />
             <p class="font-weight-normal text-left">Foto</p>
-            <v-text-field v-model="foto" label="Foto" :rules="rules" />
+            <v-text-field v-model="foto" label="Foto" :rules="rules.foto" type="url" />
             <p class="font-weight-normal text-left">Password</p>
-            <v-text-field v-model="password" label="Password" :rules="rules" type="password" />
+            <v-text-field v-model="password" label="Password" :rules="rules.password" type="password" />
             <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Registrati</v-btn>
             <p class="ma-6 text-center">Hai già un account? <a class="text-decoration-none" href="/login">Accedi</a></p>
           </v-form>
@@ -38,14 +38,35 @@
   const router = useRouter()
   const { notify } = useNotification()
 
+  const form = ref()
   const nomeUtente = ref('')
   const email = ref('')
   const password = ref('')
   const foto = ref('')
 
+  const rules = {
+    nomeUtente: [
+      v => !!v || 'Campo obbligatorio',
+      v => v.length >= 3 || 'Il nome utente deve avere almeno tre caratteri',
+    ],
+    email: [
+      v => !!v || 'Campo obbligatorio',
+      v => /.+@.+\..+/.test(v) || 'Email non valida',
+    ],
+    password: [
+      v => !!v || 'Campo obbligatorio',
+      v => v.length >= 8 || 'La password deve avere almeno otto caratteri',
+      v => /[A-Z]/.test(v) || 'La password deve avere almeno una lettera maiuscola',
+    ],
+    foto: [
+      v => !!v || 'Campo obbligatorio',
+    ],
+  }
+
   const register = async () => {
-    try {
-      if(nomeUtente.value.trim() !== '' && email.value.trim() !== '' && password.value.trim() !== '' && foto.value.trim() !== '') {
+    const { valid } = await form.value.validate()
+    if (valid) {
+      try {
         const response = await api.post('/utenti/register', {
           nomeUtente: nomeUtente.value,
           email: email.value,
@@ -65,27 +86,26 @@
           type: 'success',
         })
 
-        if(response.data.token) {
+        const token = localStorage.getItem('token')
+        if(token) {
           router.push('/')
         }
-      } else {
+      } catch(error) {
         notify({
-          title: 'Registrazione non effettuata',
-          text: 'Campi non compilati',
-          type: 'warn',
+          title: 'Registrazione fallita!',
+          text: 'Errore nella registrazione',
+          type: 'error',
         })
+        console.error('Errore:', error)
       }
-    } catch (error) {
+    } else {
       notify({
-        title: 'Registrazione fallita!',
-        text: 'Errore nella registrazione',
-        type: 'error',
+        title: 'Registrazione non effettuata',
+        text: 'Campi non compilati correttamente',
+        type: 'warn',
       })
-      console.error('Errore:', error)
     }
   }
-
-  const rules = [v => !!v || 'Campo obbligatorio']
 
   onMounted(() => {
     const token = localStorage.getItem('token')

@@ -8,7 +8,7 @@ Task List è un'applicazione web che consente agli utenti di gestire attività p
 - Registrazione utente (nome utente, email, password, foto profilo).
 - Login con autenticazione tramite JSON Web Token (JWT).
 - Creazione, visualizzazione, modifica ed eliminazione delle proprie task.
-- Interfaccia utente reattiva sviluppata con Vuetify.
+- Interfaccia utente reattiva.
 
 ##  Stack Tecnologico
 - **Frontend**: Vue.js + Vuetify  

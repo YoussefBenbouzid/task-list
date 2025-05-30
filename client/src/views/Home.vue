@@ -1,5 +1,5 @@
 <template>
-  <Header @cambiaPagina="sezioneInHome = $event" />
+  <Header @cambia-pagina="sezioneInHome = $event" />
   <ListaTask v-if="sezioneInHome === 'ListaTask'" />
   <SezioneProfilo v-else-if="sezioneInHome === 'SezioneProfilo'" />
 </template>
