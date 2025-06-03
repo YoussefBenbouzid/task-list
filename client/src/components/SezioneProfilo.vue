@@ -41,7 +41,7 @@
               </template>
               <v-card>
                 <v-card-title class="text-h6">Conferma eliminazione</v-card-title>
-                <v-card-text>Sei sicuro di voler eliminare la tua utenza?</v-card-text>
+                <v-card-text>Sei sicuro di voler eliminare il tuo profilo?</v-card-text>
                 <v-card-actions>
                   <v-spacer />
                   <v-btn @click="eliminaUtente(); isDialogEliminaOpen=false">Sì</v-btn>
@@ -79,20 +79,14 @@
 
   const rules = {
     nomeUtenteNuovo: [
-      v => !!v || 'Campo obbligatorio',
-      v => v.length >= 3 || 'Il nome utente deve avere almeno tre caratteri',
+      v => !v || v.length >= 3 || 'Il nome utente deve avere almeno tre caratteri',
     ],
     emailNuova: [
-      v => !!v || 'Campo obbligatorio',
-      v => /.+@.+\..+/.test(v) || 'Email non valida',
+      v => !v || /.+@.+\..+/.test(v) || 'Email non valida',
     ],
     passwordNuova: [
-      v => !!v || 'Campo obbligatorio',
-      v => v.length >= 8 || 'La password deve avere almeno otto caratteri',
-      v => /[A-Z]/.test(v) || 'La password deve avere almeno una lettera maiuscola',
-    ],
-    fotoNuova: [
-      v => !!v || 'Campo obbligatorio',
+      v => !v || v.length >= 8 || 'La password deve avere almeno otto caratteri',
+      v => !v || /[A-Z]/.test(v) || 'La password deve avere almeno una lettera maiuscola',
     ],
   }
 
@@ -103,10 +97,10 @@
   }
 
   function chiudiForm () {
-    nomeUtenteNuovo.value = '',
-    emailNuova.value = '',
-    fotoNuova.value = '',
-    passwordNuova.value = '',
+    nomeUtenteNuovo.value = ''
+    emailNuova.value = ''
+    fotoNuova.value = ''
+    passwordNuova.value = ''
     isDialogModificaOpen.value = false
   }
 

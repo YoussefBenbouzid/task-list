@@ -31,7 +31,7 @@
   const titolo = ref('')
   const descrizione = ref('')
   const data = ref('')
-  const priorita = ref(0)
+  const priorita = ref(1)
   const salvata = ref(false)
   const utenteId = localStorage.getItem('utenteId')
 
@@ -47,14 +47,14 @@
     priorita: [
       v => !!v || 'Campo obbligatorio',
       v => (v >= 1 && v <= 9) || 'La priorità deve essere un numero compreso tra 1 e 9',
-    ]
+    ],
   }
 
-  function chiudiForm() {
+  function chiudiForm () {
     titolo.value = ''
     descrizione.value = ''
     data.value = ''
-    priorita.value = 0
+    priorita.value = 1
     isDialogOpen.value = false
   }
 
@@ -86,7 +86,7 @@
       }
     } else {
       notify({
-        title: 'Registrazione non effettuata',
+        title: 'Aggiunta task non effettuata',
         text: 'Campi non compilati correttamente',
         type: 'warn',
       })
