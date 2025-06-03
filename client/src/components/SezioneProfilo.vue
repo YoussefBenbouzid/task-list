@@ -141,6 +141,7 @@
   const eliminaUtente = async () => {
     try {
       await api.delete(`/utenti/deleteUtente/${utenteId}`)
+      await api.delete(`/task/deleteTasksByUtente/${utenteId}`)
 
       notify({
         title: 'Profilo eliminato con successo!',

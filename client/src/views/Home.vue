@@ -1,7 +1,7 @@
 <template>
-  <Header @cambia-pagina="sezioneInHome = $event" />
-  <ListaTask v-if="sezioneInHome === 'ListaTask'" />
-  <SezioneProfilo v-else-if="sezioneInHome === 'SezioneProfilo'" />
+  <Header @cambia-pagina="sezioneInHome = $event" @task-aggiunta="taskAggiunta" />
+  <ListaTask v-if="sezioneInHome==='ListaTask'" ref="listaTaskRef" />
+  <SezioneProfilo v-else-if="sezioneInHome==='SezioneProfilo'" />
 </template>
 
 <script setup>
@@ -12,6 +12,11 @@
   import router from '@/router'
 
   const sezioneInHome = ref('ListaTask')
+  const listaTaskRef = ref(null)
+
+  const taskAggiunta = () => {
+    listaTaskRef.value?.caricaTask()
+  }
 
   onMounted(() => {
     const token = localStorage.getItem('token')

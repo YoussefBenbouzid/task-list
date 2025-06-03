@@ -4,11 +4,11 @@
       <img height="60" src="@/assets/logo.svg" width="60">
     </v-list-item>
     <v-toolbar-title style="font-family: 'Lucida Handwriting'; font-weight: bold;">Task List</v-toolbar-title>
-    <AggiungiTask />
-    <v-list-item class="ml-6 immagine-profilo" :prepend-avatar="foto" @click.stop="drawer = !drawer" />
+    <AggiungiTask @task-aggiunta="taskAggiunta" />
+    <v-list-item class="ml-6 immagine-profilo" :prepend-avatar="foto" @click.stop="drawer=!drawer" />
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer"  elevation="6" location="right" temporary>
+  <v-navigation-drawer v-model="drawer" elevation="6" location="right" temporary>
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="cambiaPagina('ListaTask')" />
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="cambiaPagina('ListaTask')" />
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-account" title="Profilo" value="profilo" @click="cambiaPagina('SezioneProfilo')" />
@@ -26,14 +26,18 @@
   const drawer = ref(null)
   const foto = ref('')
 
-  const emit = defineEmits(['cambia-pagina'])
+  const emit = defineEmits(['cambia-pagina', 'task-aggiunta'])
 
   const caricaDatiUtente = () => {
     foto.value = localStorage.getItem('foto')
   }
 
-  function cambiaPagina(pagina) {
+  function cambiaPagina (pagina) {
     emit('cambia-pagina', pagina)
+  }
+
+  function taskAggiunta () {
+    emit('task-aggiunta')
   }
 
   const logout = async () => {

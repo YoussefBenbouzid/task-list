@@ -126,4 +126,21 @@ const deleteTask = async (req, res) => {
     }
 }
 
-module.exports = { createTask, getTasks, getTask, getTasksByUtente, updateTask, updateSalvata, deleteTask }
+const deleteTasksByUtente = async (req, res) => {
+    try {
+        const utenteId = req.params.utenteId
+
+        const tasks = await Task.find({ utenteId: utenteId })
+        if (!tasks || tasks.length === 0) {
+            return res.status(404).json({ message: "Nessuna task trovata per questo utente." })
+        }
+
+        await Task.deleteMany({ utenteId: utenteId })
+        res.status(200).json({ message: "Task dell'utente eliminate con successo." })
+
+    } catch (error) {
+        res.status(500).json({ errorMessage: error.message })
+    }
+}
+
+module.exports = { createTask, getTasks, getTask, getTasksByUtente, updateTask, updateSalvata, deleteTask, deleteTasksByUtente }

@@ -57,7 +57,7 @@
 
   const { notify } = useNotification()
 
-  const emit = defineEmits(['task-flaggato', 'task-eliminato'])
+  const emit = defineEmits(['task-flaggato', 'task-modificato', 'task-eliminato'])
 
   const props = defineProps({
     task: Object,
@@ -103,7 +103,7 @@
     const { valid } = await form.value.validate()
     if (valid) {
       try {
-        await api.put(`/task/updateTask/${props.task._id}`, {
+        const response = await api.put(`/task/updateTask/${props.task._id}`, {
           titolo: titoloNuovo.value,
           descrizione: descrizioneNuova.value,
           data: dataNuova.value,
@@ -114,6 +114,8 @@
           title: 'Task modificata!',
           type: 'success',
         })
+
+        emit('task-modificato', response.data)
 
         chiudiForm()
       } catch(error) {

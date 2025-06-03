@@ -26,6 +26,8 @@
 
   const { notify } = useNotification()
 
+  const emit = defineEmits(['task-aggiunta'])
+
   const form = ref()
   const isDialogOpen = ref(false)
   const titolo = ref('')
@@ -75,6 +77,8 @@
           title: 'Task aggiunta!',
           type: 'success',
         })
+
+        emit('task-aggiunta')
 
         chiudiForm()
       } catch(error) {
