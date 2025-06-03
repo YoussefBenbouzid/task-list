@@ -44,8 +44,8 @@
                 <v-card-text>Sei sicuro di voler eliminare il tuo profilo?</v-card-text>
                 <v-card-actions>
                   <v-spacer />
-                  <v-btn @click="eliminaUtente(); isDialogEliminaOpen=false">Sì</v-btn>
-                  <v-btn @click="isDialogEliminaOpen=false">No</v-btn>
+                  <v-btn @click="eliminaUtente(); isDialogEliminaOpen=false">Elimina</v-btn>
+                  <v-btn @click="isDialogEliminaOpen=false">Annulla</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>

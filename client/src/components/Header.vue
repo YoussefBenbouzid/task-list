@@ -10,9 +10,22 @@
 
   <v-navigation-drawer v-model="drawer" elevation="6" location="right" temporary>
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="cambiaPagina('ListaTask')" />
-    <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="cambiaPagina('ListaTask')" />
+    <!-- <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="cambiaPagina('ListaTask')" /> -->
     <v-list-item class="selezione-sidebar" prepend-icon="mdi-account" title="Profilo" value="profilo" @click="cambiaPagina('SezioneProfilo')" />
-    <v-list-item class="selezione-sidebar" prepend-icon="mdi-logout" title="Esci" value="logout" @click="logout" />
+    <v-dialog v-model="isDialogLogoutOpen" max-width="500">
+      <template #activator="{ props }">
+        <v-list-item class="selezione-sidebar" prepend-icon="mdi-logout" title="Esci" v-bind="props" />
+      </template>
+      <v-card>
+        <v-card-title class="text-h6">Esci</v-card-title>
+        <v-card-text>Sei sicuro di voler uscire?</v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn @click="logout(); isDialogLogoutOpen=false">Esci</v-btn>
+          <v-btn @click="isDialogLogoutOpen=false">Annulla</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-navigation-drawer>
 </template>
 
@@ -25,6 +38,7 @@
   const router = useRouter()
   const drawer = ref(null)
   const foto = ref('')
+  const isDialogLogoutOpen = ref(false)
 
   const emit = defineEmits(['cambia-pagina', 'task-aggiunta'])
 
