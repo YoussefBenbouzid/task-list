@@ -51,11 +51,11 @@
   }
 
   function chiudiForm() {
-    isDialogOpen.value = false
     titolo.value = ''
     descrizione.value = ''
     data.value = ''
     priorita.value = 0
+    isDialogOpen.value = false
   }
 
   const aggiungiTask = async () => {
@@ -76,12 +76,7 @@
           type: 'success',
         })
 
-        titolo.value = ''
-        descrizione.value = ''
-        data.value = ''
-        priorita.value = 0
-
-        isDialogOpen.value = false
+        chiudiForm()
       } catch(error) {
         notify({
           title: 'Aggiunta task fallita!',
