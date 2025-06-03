@@ -37,6 +37,8 @@
   const nomeUtente = ref('')
   const password = ref('')
 
+  const rules = [v => !!v || 'Campo obbligatorio']
+
   const login = async () => {
     try {
       const response = await api.post('/utenti/login', {
@@ -68,8 +70,6 @@
       console.error('Errore:', error)
     }
   }
-
-  const rules = [v => !!v || 'Campo obbligatorio']
 
   onMounted(() => {
     const token = localStorage.getItem('token')

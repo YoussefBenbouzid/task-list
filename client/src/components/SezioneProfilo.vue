@@ -5,7 +5,7 @@
         <v-col>
           <v-img aspect-ratio="1" class="ma-4 rounded" cover :src="foto" :width="250" />
           <v-card-title class="text-h6 font-weight-bold">
-            <span style="font-family: 'Lucida Handwriting';">{{ nomeUtente }}</span>
+            <span class="font-weight-bold text-h4">{{ nomeUtente }}</span>
           </v-card-title>
           <v-card-subtitle>
             <span class="font-weight-bold">Email: </span>{{ email }}
@@ -54,18 +54,17 @@
   // }
 
   const eliminaUtente = async () => {
+    const utenteId = localStorage.getItem('utenteId')
     try {
-      await api.delete(`/task/deleteTask/${utente._id}`)
+      await api.delete(`/utenti/deleteUtente/${utenteId}`)
 
       notify({
         title: 'Profilo eliminato con successo!',
         type: 'success',
       })
 
-      const token = localStorage.getItem('token')
-      if(!token) {
-        router.push('/login')
-      }
+      localStorage.clear()
+      router.push('/login')
     } catch(error) {
       notify({
         title: 'Eliminazione del profilo fallita!',

@@ -86,8 +86,7 @@
           type: 'success',
         })
 
-        const token = localStorage.getItem('token')
-        if(token) {
+        if(response.data.token) {
           router.push('/')
         }
       } catch(error) {

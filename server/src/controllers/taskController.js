@@ -7,7 +7,7 @@ const createTask = async (req, res) => {
         const newTask = new Task({ titolo, descrizione, data, priorita, salvata, utenteId })
         const dati = await newTask.save()
 
-        res.status(200).json(dati)
+        res.status(201).json(dati)
 
     } catch (error) {
         res.status(500).json({ errorMessage: error.message })

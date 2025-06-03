@@ -6,7 +6,7 @@ const Utente = require('../models/utenteModel.js')
 const register = async (req, res) => {
     try {
         const { nomeUtente, email, password, foto } = req.body
-        
+
         const utenteEsistente = await Utente.findOne({ nomeUtente })
         if (utenteEsistente) {
             return res.status(400).json({ message: "Utente già registrato." })
@@ -16,7 +16,13 @@ const register = async (req, res) => {
         const newUtente = new Utente({ nomeUtente, email, password: hashedPassword, foto })
         const dati = await newUtente.save()
 
-        res.status(200).json(dati)
+        const token = jwt.sign(
+            { id: dati._id, nomeUtente: dati.nomeUtente },
+            process.env.SECRET_KEY,
+            { expiresIn: '1h' }
+        )
+
+        res.status(201).json({ token, nomeUtente: dati.nomeUtente, email: dati.email, foto: dati.foto, id: dati._id })
 
     } catch (error) {
         res.status(500).json({ errorMessage: error.message })
@@ -29,12 +35,12 @@ const login = async (req, res) => {
 
         const utente = await Utente.findOne({ nomeUtente })
         if (!utente) {
-            return res.status(400).json({ error: 'Utente non trovato.' })
+            return res.status(401).json({ error: 'Utente non trovato.' })
         }
 
         const passwordMatch = await bcrypt.compare(password, utente.password)
         if (!passwordMatch) {
-            return res.status(400).json({ error: 'Password errata.' })
+            return res.status(401).json({ error: 'Password errata.' })
         }
 
         const token = jwt.sign(
