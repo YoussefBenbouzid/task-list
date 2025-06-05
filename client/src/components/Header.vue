@@ -18,7 +18,7 @@
       </template>
       <v-card>
         <v-card-title class="text-h6">Esci</v-card-title>
-        <v-card-text>Sei sicuro di voler uscire?</v-card-text>
+        <v-card-text>Confermi di voler uscire?</v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn @click="logout(); isDialogLogoutOpen=false">Esci</v-btn>

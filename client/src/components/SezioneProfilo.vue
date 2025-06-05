@@ -41,7 +41,7 @@
               </template>
               <v-card>
                 <v-card-title class="text-h6">Conferma eliminazione</v-card-title>
-                <v-card-text>Sei sicuro di voler eliminare il tuo profilo?</v-card-text>
+                <v-card-text>Confermi di voler eliminare il tuo profilo?</v-card-text>
                 <v-card-actions>
                   <v-spacer />
                   <v-btn @click="eliminaUtente(); isDialogEliminaOpen=false">Elimina</v-btn>

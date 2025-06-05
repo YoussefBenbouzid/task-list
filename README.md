@@ -1,6 +1,6 @@
 # Task List
 
-Task List è un'applicazione web che consente agli utenti di gestire attività personali (task), con funzionalità di registrazione, login e operazioni CRUD sui task.
+Task List è un'applicazione web che consente agli utenti di gestire attività personali (task), con funzionalità di registrazione, login e operazioni CRUD.
 
 ![Interfaccia](immagini/interfaccia.png)
 
