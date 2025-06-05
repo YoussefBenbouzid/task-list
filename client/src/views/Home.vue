@@ -15,7 +15,7 @@
   const listaTaskRef = ref(null)
 
   const taskAggiunta = () => {
-    listaTaskRef.value?.caricaTask()
+    listaTaskRef.value.caricaTask()
   }
 
   onMounted(() => {
