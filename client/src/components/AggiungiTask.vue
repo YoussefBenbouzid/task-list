@@ -33,7 +33,7 @@
   const titolo = ref('')
   const descrizione = ref('')
   const data = ref('')
-  const priorita = ref(1)
+  const priorita = ref('')
   const salvata = ref(false)
   const utenteId = localStorage.getItem('utenteId')
 
@@ -56,7 +56,7 @@
     titolo.value = ''
     descrizione.value = ''
     data.value = ''
-    priorita.value = 1
+    priorita.value = ''
     isDialogOpen.value = false
   }
 

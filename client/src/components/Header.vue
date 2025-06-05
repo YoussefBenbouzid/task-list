@@ -66,7 +66,6 @@
     }
 
     localStorage.clear()
-
     router.push('/login')
   }
 

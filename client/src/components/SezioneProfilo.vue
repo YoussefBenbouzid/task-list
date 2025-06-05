@@ -28,8 +28,8 @@
                 <v-form ref="form" @submit.prevent="modificaUtente">
                   <v-text-field v-model="nomeUtenteNuovo" label="Nuovo nome utente" :rules="rules.nomeUtenteNuovo" />
                   <v-text-field v-model="emailNuova" label="Nuova email" :rules="rules.emailNuova" />
-                  <v-text-field v-model="passwordNuova" label="Nuova password" :rules="rules.passwordNuova" />
                   <v-text-field v-model="fotoNuova" label="Nuova foto" :rules="rules.fotoNuova" />
+                  <v-text-field v-model="passwordNuova" label="Nuova password" :rules="rules.passwordNuova" />
                   <v-btn block type="submit">Modifica</v-btn>
                 </v-form>
               </v-card>
@@ -97,9 +97,9 @@
   }
 
   function chiudiForm () {
-    nomeUtenteNuovo.value = ''
-    emailNuova.value = ''
-    fotoNuova.value = ''
+    nomeUtenteNuovo.value = nomeUtente.value
+    emailNuova.value = email.value
+    fotoNuova.value = foto.value
     passwordNuova.value = ''
     isDialogModificaOpen.value = false
   }
@@ -147,9 +147,6 @@
         title: 'Profilo eliminato con successo!',
         type: 'success',
       })
-
-      localStorage.clear()
-      router.push('/login')
     } catch(error) {
       notify({
         title: 'Eliminazione del profilo fallita!',
@@ -157,9 +154,15 @@
       })
       console.error('Errore:', error)
     }
+
+    localStorage.clear()
+    router.push('/login')
   }
 
   onMounted(() => {
     caricaDatiUtente()
+    nomeUtenteNuovo.value = nomeUtente.value
+    emailNuova.value = email.value
+    fotoNuova.value = foto.value
   })
 </script>

@@ -25,7 +25,7 @@
       <v-col>
         <v-dialog max-width="500" :model-value="isDialogModificaTaskOpen" @update:model-value="isDialogModificaTaskOpen = $event">
           <template #activator="{ props }">
-            <v-btn v-bind="props" class="border-md ma-1" prepend-icon="mdi-pencil" @click="isDialogModificaTaskOpen = true" />
+            <v-btn v-bind="props" class="border-md ma-1" prepend-icon="mdi-pencil" @click="apriForm" />
           </template>
           <v-card class="border-md rounded-lg pa-4">
             <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
@@ -82,7 +82,7 @@
   const titoloNuovo = ref('')
   const descrizioneNuova = ref('')
   const dataNuova = ref('')
-  const prioritaNuova = ref(1)
+  const prioritaNuova = ref('')
 
   const rules = {
     titoloNuovo: [
@@ -96,11 +96,19 @@
     ],
   }
 
+  function apriForm () {
+    titoloNuovo.value = props.task.titolo
+    descrizioneNuova.value = props.task.descrizione
+    dataNuova.value = props.task.data
+    prioritaNuova.value = props.task.priorita
+    isDialogModificaTaskOpen.value = true
+  }
+
   function chiudiForm () {
-    titoloNuovo.value = ''
-    descrizioneNuova.value = ''
-    dataNuova.value = ''
-    prioritaNuova.value = 1
+    titoloNuovo.value = props.task.titolo
+    descrizioneNuova.value = props.task.descrizione
+    dataNuova.value = props.task.data
+    prioritaNuova.value = props.task.priorita
     isDialogModificaTaskOpen.value = false
   }
 
