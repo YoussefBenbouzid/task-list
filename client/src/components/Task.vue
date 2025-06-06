@@ -1,5 +1,5 @@
 <template>
-  <v-card class="border-lg rounded-xl mx-auto my-4 pa-2" color="#009688" elevation="16" max-width="300">
+  <v-card class="border-lg rounded-xl mx-auto my-4 pa-2" color="#009688" elevation="16" max-width="260">
     <v-card-item>
       <v-card-title>
         {{ task.titolo }}
@@ -15,17 +15,23 @@
     <v-card-text>
       <span class="font-weight-bold">Data:</span> {{ formattaData(task.data) }}
     </v-card-text>
-    <v-row>
+    <v-row dense class="pa-3 justify-start align-center">
       <!-- Flagga task -->
-      <v-col class="my-1">
-        <v-btn v-if="task.salvata" class="border-md" color="#ffff00" prepend-icon="mdi-star" @click="flaggaTask(task)" />
-        <v-btn v-else class="border-md" prepend-icon="mdi-star-outline" @click="flaggaTask(task)" />
+      <v-col cols="auto" class="pa-1">
+        <v-btn v-if="task.salvata" class="border-md" color="#ffff00" @click="flaggaTask(task)">
+          <v-icon>mdi-star</v-icon>
+        </v-btn>
+        <v-btn v-else class="border-md" @click="flaggaTask(task)">
+          <v-icon>mdi-star-outline</v-icon>
+        </v-btn>
       </v-col>
       <!-- Modifica task -->
-      <v-col>
+      <v-col cols="auto" class="pa-1">
         <v-dialog max-width="500" :model-value="isDialogModificaTaskOpen" @update:model-value="isDialogModificaTaskOpen = $event">
           <template #activator="{ props }">
-            <v-btn v-bind="props" class="border-md ma-1" prepend-icon="mdi-pencil" @click="apriForm" />
+            <v-btn v-bind="props" class="border-md" @click="apriForm">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
           </template>
           <v-card class="border-md rounded-lg pa-4">
             <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
@@ -43,10 +49,12 @@
         </v-dialog>
       </v-col>
       <!-- Elimina task -->
-      <v-col>
+      <v-col cols="auto" class="pa-1">
         <v-dialog v-model="isDialogEliminaTaskOpen" max-width="500">
           <template #activator="{ props }">
-            <v-btn class="border-md ma-1" prepend-icon="mdi-delete" v-bind="props" />
+            <v-btn class="border-md" v-bind="props">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
           </template>
           <v-card>
             <v-card-title class="text-h6">Conferma eliminazione task</v-card-title>
