@@ -7,12 +7,12 @@
       <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
       <span class="font-weight-bold text-h5 text-center ma-2">Aggiungi task</span>
       <v-form ref="form" @submit.prevent="aggiungiTask">
-        <v-text-field v-model="titolo" label="Titolo" :rules="rules.titolo" />
-        <v-text-field v-model="descrizione" label="Descrizione" :rules="rules.descrizione" />
+        <v-text-field v-model="titolo" label="Titolo" variant="outlined" :rules="rules.titolo" />
+        <v-text-field v-model="descrizione" label="Descrizione" variant="outlined" :rules="rules.descrizione" />
         <div class="d-flex justify-center mb-4">
           <v-date-picker v-model="data" class="border" label="Data" locale="it" />
         </div>
-        <v-text-field v-model="priorita" label="Priorità" :rules="rules.priorita" />
+        <v-text-field v-model="priorita" label="Priorità" variant="outlined" :rules="rules.priorita" />
         <v-btn block type="submit">Aggiungi task</v-btn>
       </v-form>
     </v-card>

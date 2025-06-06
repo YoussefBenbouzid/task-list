@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="#cbcacf" height="100">
-    <v-list-item @click="cambiaPagina('ListaTask')">
+    <v-list-item @click="mostraTaskTutte">
       <img height="60" src="@/assets/logo.svg" width="60">
     </v-list-item>
     <v-toolbar-title style="font-family: 'Lucida Handwriting'; font-weight: bold;">Task List</v-toolbar-title>
@@ -9,9 +9,9 @@
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" elevation="6" location="right" temporary>
-    <v-list-item class="selezione-sidebar" prepend-icon="mdi-calendar-check" title="Le mie task" value="mieTask" @click="cambiaPagina('ListaTask')" />
-    <!-- <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" value="taskSalvate" @click="cambiaPagina('ListaTask')" /> -->
-    <v-list-item class="selezione-sidebar" prepend-icon="mdi-account" title="Profilo" value="profilo" @click="cambiaPagina('SezioneProfilo')" />
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-calendar-check" title="Le mie task" @click="mostraTaskTutte" />
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-star" title="Task salvate" @click="mostraTaskSalvate" />
+    <v-list-item class="selezione-sidebar" prepend-icon="mdi-account" title="Profilo" @click="vaiASezioneProfilo" />
     <v-dialog v-model="isDialogLogoutOpen" max-width="500">
       <template #activator="{ props }">
         <v-list-item class="selezione-sidebar" prepend-icon="mdi-logout" title="Esci" v-bind="props" />
@@ -40,18 +40,29 @@
   const foto = ref('')
   const isDialogLogoutOpen = ref(false)
 
-  const emit = defineEmits(['cambia-pagina', 'task-aggiunta'])
+  const emit = defineEmits(['cambia-pagina', 'task-aggiunta', 'mostra-task-tutte', 'mostra-task-salvate'])
 
   const caricaDatiUtente = () => {
     foto.value = localStorage.getItem('foto')
   }
 
-  function cambiaPagina (pagina) {
-    emit('cambia-pagina', pagina)
+  function vaiASezioneProfilo () {
+    emit('cambia-pagina', 'SezioneProfilo')
   }
 
   function taskAggiunta () {
+    emit('cambia-pagina', 'ListaTask')
     emit('task-aggiunta')
+  }
+
+  function mostraTaskTutte () {
+    emit('cambia-pagina', 'ListaTask')
+    emit('mostra-task-tutte')
+  }
+
+  function mostraTaskSalvate () {
+    emit('cambia-pagina', 'ListaTask')
+    emit('mostra-task-salvate')
   }
 
   const logout = async () => {

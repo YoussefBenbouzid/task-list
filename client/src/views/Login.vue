@@ -9,10 +9,8 @@
           </div>
           <v-form class="ma-6" @submit.prevent="login">
             <p class="font-weight-black ma-6 text-center">Accedi al tuo account</p>
-            <p class="font-weight-normal text-left">Nome utente</p>
-            <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules" />
-            <p class="font-weight-normal text-left">Password</p>
-            <v-text-field v-model="password" label="Password" :rules="rules" type="password" />
+            <v-text-field v-model="nomeUtente" label="Nome utente" variant="outlined" :rules="rules" />
+            <v-text-field v-model="password" label="Password" variant="outlined" :rules="rules" type="password" />
             <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Accedi</v-btn>
             <p class="ma-6 text-center">Non hai un account? <a class="text-decoration-none" href="/register">Registrati</a></p>
           </v-form>

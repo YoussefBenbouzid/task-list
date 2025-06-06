@@ -2,13 +2,13 @@
   <div class="ma-6 w-100">
     <v-toolbar class="mx-16 rounded-lg" floating>
       <div class="px-4">
-        <v-text-field v-model="filtro" density="compact" placeholder="Cerca task" prepend-inner-icon="mdi-magnify" variant="solo" width="800" flat hide-details single-line />
+        <v-text-field v-model="filtro" density="compact" flat hide-details placeholder="Cerca task" prepend-inner-icon="mdi-magnify" single-line variant="solo" width="800" />
       </div>
     </v-toolbar>
 
     <v-row class="ma-6 w-75">
-      <v-col v-for="(task, i) in taskFiltrati" :key="i" cols="12" md="4" lg="3">
-        <Task :task="task" @task-flaggato="aggiornaTask" @task-modificato="aggiornaTask" @task-eliminato="rimuoviTask" />
+      <v-col v-for="(task, i) in taskFiltrati" :key="i" cols="12" lg="3" md="4">
+        <Task :task="task" @task-eliminato="rimuoviTask" @task-flaggato="aggiornaTask" @task-modificato="aggiornaTask" />
       </v-col>
     </v-row>
   </div>
@@ -21,16 +21,37 @@
 
   const arrayTask = ref([])
   const filtro = ref('')
+  const mostraSoloTaskSalvate = ref(false)
 
   const taskFiltrati = computed(() => {
-    if (!filtro.value) {
-      return arrayTask.value
+    let tasks = arrayTask.value
+    if (mostraSoloTaskSalvate.value) {
+      tasks = tasks.filter(task => task.salvata === true)
     }
-    return arrayTask.value.filter(task =>
-      task.titolo.toLowerCase().includes(filtro.value.toLowerCase()) ||
-      task.descrizione.toLowerCase().includes(filtro.value.toLowerCase())
-    )
+    if (filtro.value) {
+      tasks = tasks.filter(task =>
+        task.titolo.toLowerCase().includes(filtro.value.toLowerCase()) ||
+        task.descrizione.toLowerCase().includes(filtro.value.toLowerCase())
+      )
+    }
+    return tasks
   })
+
+  function resetFiltro () {
+    filtro.value = ''
+  }
+
+  function mostraTaskTutte () {
+    mostraSoloTaskSalvate.value = false
+    resetFiltro()
+    caricaTask()
+  }
+
+  function mostraTaskSalvate () {
+    mostraSoloTaskSalvate.value = true
+    resetFiltro()
+    caricaTask()
+  }
 
   const caricaTask = async () => {
     try {
@@ -58,7 +79,7 @@
     }
   }
 
-  defineExpose({ caricaTask })
+  defineExpose({ caricaTask, mostraTaskTutte, mostraTaskSalvate })
 
   onMounted(() => {
     caricaTask()

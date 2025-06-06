@@ -26,10 +26,10 @@
                 <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
                 <span class="font-weight-bold text-h5 text-center ma-2">Modifica la tua utenza</span>
                 <v-form ref="form" @submit.prevent="modificaUtente">
-                  <v-text-field v-model="nomeUtenteNuovo" label="Nuovo nome utente" :rules="rules.nomeUtenteNuovo" />
-                  <v-text-field v-model="emailNuova" label="Nuova email" :rules="rules.emailNuova" />
-                  <v-text-field v-model="fotoNuova" label="Nuova foto" :rules="rules.fotoNuova" />
-                  <v-text-field v-model="passwordNuova" label="Nuova password" :rules="rules.passwordNuova" />
+                  <v-text-field v-model="nomeUtenteNuovo" label="Nuovo nome utente" variant="outlined" :rules="rules.nomeUtenteNuovo" />
+                  <v-text-field v-model="emailNuova" label="Nuova email" variant="outlined" :rules="rules.emailNuova" />
+                  <v-text-field v-model="fotoNuova" label="Nuova foto" variant="outlined" :rules="rules.fotoNuova" />
+                  <v-text-field v-model="passwordNuova" label="Nuova password" variant="outlined" :rules="rules.passwordNuova" />
                   <v-btn block type="submit">Modifica</v-btn>
                 </v-form>
               </v-card>

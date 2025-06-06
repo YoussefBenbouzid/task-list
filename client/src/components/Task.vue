@@ -17,7 +17,7 @@
     </v-card-text>
     <v-row>
       <!-- Flagga task -->
-      <v-col class="d-flex justify-center" cols="4">
+      <v-col class="my-1">
         <v-btn v-if="task.salvata" class="border-md" color="#ffff00" prepend-icon="mdi-star" @click="flaggaTask(task)" />
         <v-btn v-else class="border-md" prepend-icon="mdi-star-outline" @click="flaggaTask(task)" />
       </v-col>
@@ -31,12 +31,12 @@
             <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
             <span class="font-weight-bold text-h5 text-center ma-2">Modifica task</span>
             <v-form ref="form" @submit.prevent="modificaTask">
-              <v-text-field v-model="titoloNuovo" label="Nuovo titolo" :rules="rules.titoloNuovo" />
-              <v-text-field v-model="descrizioneNuova" label="Nuova descrizione" :rules="rules.descrizioneNuova" />
+              <v-text-field v-model="titoloNuovo" label="Nuovo titolo" variant="outlined" :rules="rules.titoloNuovo" />
+              <v-text-field v-model="descrizioneNuova" label="Nuova descrizione" variant="outlined" :rules="rules.descrizioneNuova" />
               <div class="d-flex justify-center mb-4">
                 <v-date-picker v-model="dataNuova" class="border" label="Nuova data" locale="it" />
               </div>
-              <v-text-field v-model="prioritaNuova" label="Nuova priorità" :rules="rules.prioritaNuova" />
+              <v-text-field v-model="prioritaNuova" label="Nuova priorità" variant="outlined" :rules="rules.prioritaNuova" />
               <v-btn block type="submit">Modifica task</v-btn>
             </v-form>
           </v-card>

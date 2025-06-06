@@ -9,14 +9,10 @@
           </div>
           <v-form ref="form" class="ma-6" @submit.prevent="register">
             <p class="font-weight-black ma-6 text-center">Crea il tuo account</p>
-            <p class="font-weight-normal text-left">Nome utente</p>
-            <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules.nomeUtente" />
-            <p class="font-weight-normal text-left">Email</p>
-            <v-text-field v-model="email" label="Email" :rules="rules.email" type="email" />
-            <p class="font-weight-normal text-left">Foto</p>
-            <v-text-field v-model="foto" label="Foto" :rules="rules.foto" type="url" />
-            <p class="font-weight-normal text-left">Password</p>
-            <v-text-field v-model="password" label="Password" :rules="rules.password" type="password" />
+            <v-text-field v-model="nomeUtente" label="Nome utente" variant="outlined" :rules="rules.nomeUtente" />
+            <v-text-field v-model="email" label="Email" variant="outlined" :rules="rules.email" type="email" />
+            <v-text-field v-model="foto" label="Foto" variant="outlined" :rules="rules.foto" type="url" />
+            <v-text-field v-model="password" label="Password" variant="outlined" :rules="rules.password" type="password" />
             <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Registrati</v-btn>
             <p class="ma-6 text-center">Hai già un account? <a class="text-decoration-none" href="/login">Accedi</a></p>
           </v-form>
