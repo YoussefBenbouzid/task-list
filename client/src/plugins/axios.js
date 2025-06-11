@@ -12,6 +12,7 @@ api.interceptors.request.use(config => {
   }
   return config
 }, error => {
+  console.error(error)
   return Promise.reject(error)
 })
 
@@ -19,10 +20,8 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
-      const status = error.response.status
-      if (status === 401 || status === 403) {
+      if (error.response.status === 401 || error.response.status === 403) {
         localStorage.clear()
-        alert('Sessione scaduta, effettua il login di nuovo.')
         router.push('/login')
       }
     }
