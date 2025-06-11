@@ -35,19 +35,6 @@ cd task-list
 npm install
 ```
 
-#### Client
-```bash
-cd client
-```
-
-```bash
-npm install
-```
-
-```bash
-cd ..
-```
-
 #### Server
 ```bash
 cd server
@@ -61,8 +48,21 @@ npm install
 cd ..
 ```
 
+#### Client
+```bash
+cd client
+```
+
+```bash
+npm install
+```
+
+```bash
+cd ..
+```
+
 ### 3. Avvio di MongoDB
-Attivare MongoDB; il database locale verrà popolato con due collezioni:
+Creare un database locale su MongoDB che verrà popolato con due collezioni:
 - `utenti`
 - `task`
 

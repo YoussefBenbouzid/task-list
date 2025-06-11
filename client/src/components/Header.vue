@@ -46,6 +46,11 @@
     foto.value = localStorage.getItem('foto')
   }
 
+  function logout () {
+    localStorage.clear()
+    router.push('/login')
+  }
+
   function vaiASezioneProfilo () {
     emit('cambia-pagina', 'SezioneProfilo')
   }
@@ -63,21 +68,6 @@
   function mostraTaskSalvate () {
     emit('cambia-pagina', 'ListaTask')
     emit('mostra-task-salvate')
-  }
-
-  const logout = async () => {
-    try {
-      await api.post('/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      })
-    } catch (error) {
-      console.error('Errore:', error)
-    }
-
-    localStorage.clear()
-    router.push('/login')
   }
 
   onMounted(() => {

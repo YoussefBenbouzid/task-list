@@ -57,14 +57,6 @@ const login = async (req, res) => {
     }
 }
 
-const logout = async (req, res) => {
-    try {
-        res.status(200).json({ message: 'Logout riuscito.' })
-    } catch (error) {
-        res.status(500).json({ errorMessage: error.message })
-    }
-}
-
 const getUtente = async (req, res) => {
     try {
         const id = req.params.utenteId
@@ -145,4 +137,4 @@ const getUtenti = async (req, res) => {
     }
 }
 
-module.exports = { register, login, logout, getUtente, updateUtente, deleteUtente, getUtenti }
+module.exports = { register, login, getUtente, updateUtente, deleteUtente, getUtenti }

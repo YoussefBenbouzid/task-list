@@ -55,13 +55,8 @@
 
   const caricaTask = async () => {
     try {
-      const token = localStorage.getItem('token')
       const utenteId = localStorage.getItem('utenteId')
-      const response = await api.get(`/task/getTasksByUtente/${utenteId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await api.get(`/task/getTasksByUtente/${utenteId}`)
       arrayTask.value = response.data
     } catch (error) {
       console.error('Errore:', error)
