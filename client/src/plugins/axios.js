@@ -20,7 +20,7 @@ api.interceptors.response.use(
   error => {
     if (error.response) {
       const status = error.response.status
-      if (status === 403) {
+      if (status === 401 || status === 403) {
         localStorage.clear()
         alert('Sessione scaduta, effettua il login di nuovo.')
         router.push('/login')
