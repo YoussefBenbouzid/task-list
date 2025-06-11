@@ -19,7 +19,7 @@ const register = async (req, res) => {
         const token = jwt.sign(
             { id: dati._id, nomeUtente: dati.nomeUtente },
             process.env.SECRET_KEY,
-            { expiresIn: '1h' }
+            { expiresIn: '2h' }
         )
 
         res.status(201).json({ token, nomeUtente: dati.nomeUtente, email: dati.email, foto: dati.foto, id: dati._id })
@@ -46,7 +46,7 @@ const login = async (req, res) => {
         const token = jwt.sign(
             { id: utente._id, nomeUtente: utente.nomeUtente },
             process.env.SECRET_KEY,
-            { expiresIn: '1h' }
+            { expiresIn: '2h' }
         )
         
         res.status(200).json({ token, nomeUtente: utente.nomeUtente, email: utente.email, foto: utente.foto, id: utente._id })
