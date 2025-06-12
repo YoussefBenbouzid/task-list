@@ -70,7 +70,7 @@ const updateTask = async (req, res) => {
             return res.status(404).json({ message: "Task non trovata." })
         }
 
-        const campiConsentiti = ['titolo', 'descrizione', 'data', 'priorita']
+        const campiConsentiti = ['titolo', 'descrizione', 'data', 'priorita', 'salvata']
         const datiAggiornati = {}
 
         for (let campo of campiConsentiti) {
@@ -79,32 +79,16 @@ const updateTask = async (req, res) => {
             }
         }
 
+        if (req.body.salvata !== undefined) {
+            datiAggiornati.salvata = !taskEsiste.salvata;
+        }
+
         const updatedData = await Task.findByIdAndUpdate(id, datiAggiornati, { new: true })
 
         res.status(200).json(updatedData)
 
     } catch (error) {
         res.status(500).json({ errorMessage: error.message })
-    }
-}
-
-const updateSalvata = async (req, res) => {
-    try {
-        const id = req.params.taskId;
-
-        const taskEsiste = await Task.findById(id);
-        if (!taskEsiste) {
-            return res.status(404).json({ message: "Task non trovata." });
-        }
-
-        const newSalvata = !taskEsiste.salvata;
-        const datiAggiornati = { salvata: newSalvata };
-        const updatedData = await Task.findByIdAndUpdate(id, datiAggiornati, { new: true });
-
-        res.status(200).json(updatedData);
-
-    } catch (error) {
-        res.status(500).json({ errorMessage: error.message });
     }
 }
 
@@ -143,4 +127,4 @@ const deleteTasksByUtente = async (req, res) => {
     }
 }
 
-module.exports = { createTask, getTasks, getTask, getTasksByUtente, updateTask, updateSalvata, deleteTask, deleteTasksByUtente }
+module.exports = { createTask, getTasks, getTask, getTasksByUtente, updateTask, deleteTask, deleteTasksByUtente }

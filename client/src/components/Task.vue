@@ -15,9 +15,9 @@
     <v-card-text>
       <span class="font-weight-bold">Data:</span> {{ formattaData(task.data) }}
     </v-card-text>
-    <v-row dense class="pa-3 justify-start align-center">
+    <v-row class="align-center justify-start pa-3" dense>
       <!-- Flagga task -->
-      <v-col cols="auto" class="pa-1">
+      <v-col class="pa-1" cols="auto">
         <v-btn v-if="task.salvata" class="border-md" color="#ffff00" @click="flaggaTask(task)">
           <v-icon>mdi-star</v-icon>
         </v-btn>
@@ -26,7 +26,7 @@
         </v-btn>
       </v-col>
       <!-- Modifica task -->
-      <v-col cols="auto" class="pa-1">
+      <v-col class="pa-1" cols="auto">
         <v-dialog max-width="500" :model-value="isDialogModificaTaskOpen" @update:model-value="isDialogModificaTaskOpen = $event">
           <template #activator="{ props }">
             <v-btn v-bind="props" class="border-md" @click="apriForm">
@@ -37,19 +37,19 @@
             <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
             <span class="font-weight-bold text-h5 text-center ma-2">Modifica task</span>
             <v-form ref="form" @submit.prevent="modificaTask">
-              <v-text-field v-model="titoloNuovo" label="Nuovo titolo" variant="outlined" :rules="rules.titoloNuovo" />
-              <v-text-field v-model="descrizioneNuova" label="Nuova descrizione" variant="outlined" :rules="rules.descrizioneNuova" />
+              <v-text-field v-model="titoloNuovo" label="Nuovo titolo" :rules="rules.titoloNuovo" variant="outlined" />
+              <v-text-field v-model="descrizioneNuova" label="Nuova descrizione" :rules="rules.descrizioneNuova" variant="outlined" />
               <div class="d-flex justify-center mb-4">
                 <v-date-picker v-model="dataNuova" class="border" label="Nuova data" locale="it" />
               </div>
-              <v-text-field v-model="prioritaNuova" label="Nuova priorità" variant="outlined" :rules="rules.prioritaNuova" />
+              <v-text-field v-model="prioritaNuova" label="Nuova priorità" :rules="rules.prioritaNuova" variant="outlined" />
               <v-btn block type="submit">Modifica task</v-btn>
             </v-form>
           </v-card>
         </v-dialog>
       </v-col>
       <!-- Elimina task -->
-      <v-col cols="auto" class="pa-1">
+      <v-col class="pa-1" cols="auto">
         <v-dialog v-model="isDialogEliminaTaskOpen" max-width="500">
           <template #activator="{ props }">
             <v-btn class="border-md" v-bind="props">
@@ -78,7 +78,7 @@
 
   const { notify } = useNotification()
 
-  const emit = defineEmits(['task-flaggato', 'task-modificato', 'task-eliminato'])
+  const emit = defineEmits(['task-modificata', 'task-eliminata'])
 
   const props = defineProps({
     task: Object,
@@ -122,8 +122,10 @@
 
   const flaggaTask = async () => {
     try {
-      const response = await api.put(`/task/updateSalvata/${props.task._id}`)
-      emit('task-flaggato', response.data)
+      const response = await api.put(`/task/updateTask/${props.task._id}`, {
+        salvata: !props.task.salvata,
+      })
+      emit('task-modificata', response.data)
     } catch (error) {
       console.error('Errore:', error)
     }
@@ -145,7 +147,7 @@
           type: 'success',
         })
 
-        emit('task-modificato', response.data)
+        emit('task-modificata', response.data)
 
         chiudiForm()
       } catch(error) {
@@ -173,7 +175,7 @@
         type: 'success',
       })
 
-      emit('task-eliminato', props.task._id)
+      emit('task-eliminata', props.task._id)
     } catch (error) {
       notify({
         title: 'Eliminazione della task fallita!',
