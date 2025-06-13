@@ -61,44 +61,43 @@
 
   const register = async () => {
     const { valid } = await form.value.validate()
-    if (valid) {
-      try {
-        const response = await api.post('/utenti/register', {
-          nomeUtente: nomeUtente.value,
-          email: email.value,
-          password: password.value,
-          foto: foto.value,
-        })
-
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('nomeUtente', response.data.nomeUtente)
-        localStorage.setItem('email', response.data.email)
-        localStorage.setItem('foto', response.data.foto)
-        localStorage.setItem('utenteId', response.data.id)
-
-        notify({
-          title: 'Marhaban!',
-          text: 'La tua utenza è stata registrata',
-          type: 'success',
-        })
-
-        if(response.data.token) {
-          router.push('/')
-        }
-      } catch(error) {
-        notify({
-          title: 'Registrazione fallita!',
-          text: 'Errore nella registrazione',
-          type: 'error',
-        })
-        console.error('Errore:', error)
-      }
-    } else {
+    if (!valid) {
       notify({
         title: 'Registrazione non effettuata',
         text: 'Campi non compilati correttamente',
         type: 'warn',
       })
+    }
+    try {
+      const response = await api.post('/utenti/register', {
+        nomeUtente: nomeUtente.value,
+        email: email.value,
+        password: password.value,
+        foto: foto.value,
+      })
+
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('nomeUtente', response.data.nomeUtente)
+      localStorage.setItem('email', response.data.email)
+      localStorage.setItem('foto', response.data.foto)
+      localStorage.setItem('utenteId', response.data.id)
+
+      notify({
+        title: 'Marhaban!',
+        text: 'La tua utenza è stata registrata',
+        type: 'success',
+      })
+
+      if(response.data.token) {
+        router.push('/')
+      }
+    } catch(error) {
+      notify({
+        title: 'Registrazione fallita!',
+        text: 'Errore nella registrazione',
+        type: 'error',
+      })
+      console.error('Errore:', error)
     }
   }
 
