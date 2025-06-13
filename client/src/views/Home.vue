@@ -33,6 +33,7 @@
   }
 
   onMounted(() => {
+    // Da aggiungere la verifica del token
     const token = localStorage.getItem('token')
     if(!token) {
       router.push('/login')
