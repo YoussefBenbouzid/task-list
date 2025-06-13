@@ -2,7 +2,7 @@
   <div class="ma-6 w-100">
     <v-toolbar class="mx-16 rounded-lg" floating>
       <div class="px-4">
-        <v-text-field v-model="filtro" density="compact" flat hide-details prepend-inner-icon="mdi-magnify" placeholder="Cerca task" single-line variant="solo" width="800" />
+        <v-text-field v-model="filtro" density="compact" flat hide-details placeholder="Cerca task" prepend-inner-icon="mdi-magnify" single-line variant="solo" width="800" />
       </div>
     </v-toolbar>
 
@@ -16,12 +16,21 @@
 
 <script setup>
   import { computed, onMounted, ref } from 'vue'
-  import api from '@/plugins/axios.js'
+  import { useRouter } from 'vue-router'
   import Task from '@/components/Task.vue'
+  import api from '@/plugins/axios.js'
+  import { getDatiUtente } from '@/plugins/getDatiUtente.js'
+
+  const router = useRouter()
 
   const arrayTask = ref([])
   const filtro = ref('')
   const mostraSoloTaskSalvate = ref(false)
+  const datiUtente = getDatiUtente() || {}
+  if (!datiUtente) {
+    router.push('/login')
+  }
+  const utenteId = datiUtente.utenteId
 
   const taskFiltrati = computed(() => {
     let tasks = arrayTask.value
@@ -37,17 +46,17 @@
     return tasks
   })
 
-  function resetFiltro () {
+  const resetFiltro = () => {
     filtro.value = ''
   }
 
-  function mostraTaskTutte () {
+  const mostraTaskTutte = () => {
     mostraSoloTaskSalvate.value = false
     resetFiltro()
     caricaTask()
   }
 
-  function mostraTaskSalvate () {
+  const mostraTaskSalvate = () => {
     mostraSoloTaskSalvate.value = true
     resetFiltro()
     caricaTask()
@@ -55,7 +64,6 @@
 
   const caricaTask = async () => {
     try {
-      const utenteId = localStorage.getItem('utenteId')
       const response = await api.get(`/task/getTasksByUtente/${utenteId}`)
       arrayTask.value = response.data
     } catch (error) {

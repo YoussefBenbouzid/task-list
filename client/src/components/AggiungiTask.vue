@@ -7,12 +7,12 @@
       <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
       <span class="font-weight-bold text-h5 text-center ma-2">Aggiungi task</span>
       <v-form ref="form" @submit.prevent="aggiungiTask">
-        <v-text-field v-model="titolo" label="Titolo" variant="outlined" :rules="rules.titolo" />
-        <v-text-field v-model="descrizione" label="Descrizione" variant="outlined" :rules="rules.descrizione" />
+        <v-text-field v-model="titolo" label="Titolo" :rules="rules.titolo" variant="outlined" />
+        <v-text-field v-model="descrizione" label="Descrizione" :rules="rules.descrizione" variant="outlined" />
         <div class="d-flex justify-center mb-4">
           <v-date-picker v-model="data" class="border" label="Data" locale="it" />
         </div>
-        <v-text-field v-model="priorita" label="Priorità" variant="outlined" :rules="rules.priorita" />
+        <v-text-field v-model="priorita" label="Priorità" :rules="rules.priorita" variant="outlined" />
         <v-btn block type="submit">Aggiungi task</v-btn>
       </v-form>
     </v-card>
@@ -21,9 +21,12 @@
 
 <script setup>
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useNotification } from '@kyvg/vue3-notification'
   import api from '@/plugins/axios.js'
+  import { getDatiUtente } from '@/plugins/getDatiUtente.js'
 
+  const router = useRouter()
   const { notify } = useNotification()
 
   const emit = defineEmits(['task-aggiunta'])
@@ -35,7 +38,11 @@
   const data = ref('')
   const priorita = ref('')
   const salvata = ref(false)
-  const utenteId = localStorage.getItem('utenteId')
+  const datiUtente = getDatiUtente() || {}
+  if (!datiUtente) {
+    router.push('/login')
+  }
+  const utenteId = datiUtente.utenteId
 
   const rules = {
     titolo: [
@@ -52,7 +59,7 @@
     ],
   }
 
-  function chiudiForm () {
+  const chiudiForm = () => {
     titolo.value = ''
     descrizione.value = ''
     data.value = ''

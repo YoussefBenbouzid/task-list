@@ -9,8 +9,8 @@
           </div>
           <v-form class="ma-6" @submit.prevent="login">
             <p class="font-weight-black ma-6 text-center">Accedi al tuo account</p>
-            <v-text-field v-model="nomeUtente" label="Nome utente" variant="outlined" :rules="rules" />
-            <v-text-field v-model="password" label="Password" variant="outlined" :rules="rules" type="password" />
+            <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules" variant="outlined" />
+            <v-text-field v-model="password" label="Password" :rules="rules" type="password" variant="outlined" />
             <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Accedi</v-btn>
             <p class="ma-6 text-center">Non hai un account? <a class="text-decoration-none" href="/register">Registrati</a></p>
           </v-form>
@@ -45,10 +45,6 @@
       })
 
       localStorage.setItem('token', response.data.token)
-      localStorage.setItem('nomeUtente', response.data.nomeUtente)
-      localStorage.setItem('email', response.data.email)
-      localStorage.setItem('foto', response.data.foto)
-      localStorage.setItem('utenteId', response.data.id)
 
       notify({
         title: 'Marhaban!',

@@ -31,48 +31,44 @@
 
 <script setup>
   import AggiungiTask from '@/components/AggiungiTask.vue'
-  import { onMounted, ref } from 'vue'
+  import { ref } from 'vue'
   import { useRouter } from 'vue-router'
-  import api from '@/plugins/axios.js'
+  import { getDatiUtente } from '@/plugins/getDatiUtente.js'
 
   const router = useRouter()
   const drawer = ref(null)
-  const foto = ref('')
+  const datiUtente = getDatiUtente() || {}
+  if (!datiUtente) {
+    router.push('/login')
+  }
+  const foto = ref(datiUtente.foto)
   const isDialogLogoutOpen = ref(false)
 
   const emit = defineEmits(['cambia-pagina', 'task-aggiunta', 'mostra-task-tutte', 'mostra-task-salvate'])
 
-  const caricaDatiUtente = () => {
-    foto.value = localStorage.getItem('foto')
-  }
-
-  function logout () {
+  const logout = () => {
     localStorage.clear()
     router.push('/login')
   }
 
-  function vaiASezioneProfilo () {
+  const vaiASezioneProfilo = () => {
     emit('cambia-pagina', 'SezioneProfilo')
   }
 
-  function taskAggiunta () {
+  const taskAggiunta = () => {
     emit('cambia-pagina', 'ListaTask')
     emit('task-aggiunta')
   }
 
-  function mostraTaskTutte () {
+  const mostraTaskTutte = () => {
     emit('cambia-pagina', 'ListaTask')
     emit('mostra-task-tutte')
   }
 
-  function mostraTaskSalvate () {
+  const mostraTaskSalvate = () => {
     emit('cambia-pagina', 'ListaTask')
     emit('mostra-task-salvate')
   }
-
-  onMounted(() => {
-    caricaDatiUtente()
-  })
 </script>
 
 <style scoped>

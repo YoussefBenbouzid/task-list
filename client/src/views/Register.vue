@@ -9,10 +9,10 @@
           </div>
           <v-form ref="form" class="ma-6" @submit.prevent="register">
             <p class="font-weight-black ma-6 text-center">Crea il tuo account</p>
-            <v-text-field v-model="nomeUtente" label="Nome utente" variant="outlined" :rules="rules.nomeUtente" />
-            <v-text-field v-model="email" label="Email" variant="outlined" :rules="rules.email" type="email" />
-            <v-text-field v-model="foto" label="Foto" variant="outlined" :rules="rules.foto" type="url" />
-            <v-text-field v-model="password" label="Password" variant="outlined" :rules="rules.password" type="password" />
+            <v-text-field v-model="nomeUtente" label="Nome utente" :rules="rules.nomeUtente" variant="outlined" />
+            <v-text-field v-model="email" label="Email" :rules="rules.email" type="email" variant="outlined" />
+            <v-text-field v-model="foto" label="Foto" :rules="rules.foto" type="url" variant="outlined" />
+            <v-text-field v-model="password" label="Password" :rules="rules.password" type="password" variant="outlined" />
             <v-btn block class="mt-2 rounded-lg" color="#190ba4" type="submit">Registrati</v-btn>
             <p class="ma-6 text-center">Hai già un account? <a class="text-decoration-none" href="/login">Accedi</a></p>
           </v-form>
@@ -67,6 +67,7 @@
         text: 'Campi non compilati correttamente',
         type: 'warn',
       })
+      return
     }
     try {
       const response = await api.post('/utenti/register', {
@@ -77,10 +78,6 @@
       })
 
       localStorage.setItem('token', response.data.token)
-      localStorage.setItem('nomeUtente', response.data.nomeUtente)
-      localStorage.setItem('email', response.data.email)
-      localStorage.setItem('foto', response.data.foto)
-      localStorage.setItem('utenteId', response.data.id)
 
       notify({
         title: 'Marhaban!',

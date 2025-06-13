@@ -104,7 +104,7 @@
     ],
   }
 
-  function apriForm () {
+  const apriForm = () => {
     titoloNuovo.value = props.task.titolo
     descrizioneNuova.value = props.task.descrizione
     dataNuova.value = props.task.data
@@ -112,7 +112,7 @@
     isDialogModificaTaskOpen.value = true
   }
 
-  function chiudiForm () {
+  const chiudiForm = () => {
     titoloNuovo.value = props.task.titolo
     descrizioneNuova.value = props.task.descrizione
     dataNuova.value = props.task.data

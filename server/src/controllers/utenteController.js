@@ -17,7 +17,7 @@ const register = async (req, res) => {
         const dati = await newUtente.save()
 
         const token = jwt.sign(
-            { id: dati._id, nomeUtente: dati.nomeUtente },
+            { id: dati._id, nomeUtente: dati.nomeUtente, email: dati.email, foto: dati.foto },
             process.env.SECRET_KEY,
             { expiresIn: '2h' }
         )
@@ -44,7 +44,7 @@ const login = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: utente._id, nomeUtente: utente.nomeUtente },
+            { id: utente._id, nomeUtente: utente.nomeUtente, email: utente.email, foto: utente.foto },
             process.env.SECRET_KEY,
             { expiresIn: '2h' }
         )

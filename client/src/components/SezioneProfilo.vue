@@ -26,10 +26,10 @@
                 <v-btn color="#e32a20" style="position: absolute; top: 0; right: 0;" text="X" @click="chiudiForm" />
                 <span class="font-weight-bold text-h5 text-center ma-2">Modifica la tua utenza</span>
                 <v-form ref="form" @submit.prevent="modificaUtente">
-                  <v-text-field v-model="nomeUtenteNuovo" label="Nuovo nome utente" variant="outlined" :rules="rules.nomeUtenteNuovo" />
-                  <v-text-field v-model="emailNuova" label="Nuova email" variant="outlined" :rules="rules.emailNuova" />
-                  <v-text-field v-model="fotoNuova" label="Nuova foto" variant="outlined" :rules="rules.fotoNuova" />
-                  <v-text-field v-model="passwordNuova" label="Nuova password" variant="outlined" :rules="rules.passwordNuova" />
+                  <v-text-field v-model="nomeUtenteNuovo" label="Nuovo nome utente" :rules="rules.nomeUtenteNuovo" variant="outlined" />
+                  <v-text-field v-model="emailNuova" label="Nuova email" :rules="rules.emailNuova" variant="outlined" />
+                  <v-text-field v-model="fotoNuova" label="Nuova foto" :rules="rules.fotoNuova" variant="outlined" />
+                  <v-text-field v-model="passwordNuova" label="Nuova password" :rules="rules.passwordNuova" variant="outlined" />
                   <v-btn block type="submit">Modifica</v-btn>
                 </v-form>
               </v-card>
@@ -61,6 +61,7 @@
   import { useRouter } from 'vue-router'
   import { useNotification } from '@kyvg/vue3-notification'
   import api from '@/plugins/axios.js'
+  import { getDatiUtente } from '@/plugins/getDatiUtente.js'
 
   const router = useRouter()
   const { notify } = useNotification()
@@ -68,14 +69,19 @@
   const isDialogModificaOpen = ref(false)
   const isDialogEliminaOpen = ref(false)
   const form = ref()
-  const nomeUtente = ref('')
-  const email = ref('')
-  const foto = ref('')
   const nomeUtenteNuovo = ref('')
   const emailNuova = ref('')
   const fotoNuova = ref('')
   const passwordNuova = ref('')
-  const utenteId = localStorage.getItem('utenteId')
+  const datiUtente = getDatiUtente() || {}
+  if (!datiUtente) {
+    router.push('/login')
+  }
+  const utenteId = datiUtente.utenteId
+  const nomeUtente = ref(datiUtente.nomeUtente)
+  const email = ref(datiUtente.email)
+  const foto = ref(datiUtente.foto)
+
 
   const rules = {
     nomeUtenteNuovo: [
@@ -90,13 +96,7 @@
     ],
   }
 
-  const caricaDatiUtente = () => {
-    nomeUtente.value = localStorage.getItem('nomeUtente')
-    email.value = localStorage.getItem('email')
-    foto.value = localStorage.getItem('foto')
-  }
-
-  function chiudiForm () {
+  const chiudiForm = () => {
     nomeUtenteNuovo.value = nomeUtente.value
     emailNuova.value = email.value
     fotoNuova.value = foto.value
@@ -106,35 +106,35 @@
 
   const modificaUtente = async () => {
     const { valid } = await form.value.validate()
-    if (valid) {
-      try {
-        await api.put(`/utenti/updateUtente/${utenteId}`, {
-          nomeUtente: nomeUtenteNuovo.value,
-          email: emailNuova.value,
-          password: passwordNuova.value,
-          foto: fotoNuova.value,
-        })
-
-        notify({
-          title: 'Profilo modificato con successo!',
-          type: 'success',
-        })
-
-        localStorage.clear()
-        router.push('/login')
-      } catch(error) {
-        notify({
-          title: 'Modifica del profilo fallita!',
-          type: 'error',
-        })
-        console.error('Errore:', error)
-      }
-    } else {
+    if (!valid) {
       notify({
         title: 'Registrazione non effettuata',
         text: 'Campi non compilati correttamente',
         type: 'warn',
       })
+      return
+    }
+    try {
+      await api.put(`/utenti/updateUtente/${utenteId}`, {
+        nomeUtente: nomeUtenteNuovo.value,
+        email: emailNuova.value,
+        password: passwordNuova.value,
+        foto: fotoNuova.value,
+      })
+
+      notify({
+        title: 'Profilo modificato con successo!',
+        type: 'success',
+      })
+
+      localStorage.clear()
+      router.push('/login')
+    } catch(error) {
+      notify({
+        title: 'Modifica del profilo fallita!',
+        type: 'error',
+      })
+      console.error('Errore:', error)
     }
   }
 
@@ -160,7 +160,6 @@
   }
 
   onMounted(() => {
-    caricaDatiUtente()
     nomeUtenteNuovo.value = nomeUtente.value
     emailNuova.value = email.value
     fotoNuova.value = foto.value
